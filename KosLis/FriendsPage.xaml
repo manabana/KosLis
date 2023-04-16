@@ -68,6 +68,70 @@
                     </ListView>
 
                 </Grid>
+                <Grid Grid.Row="2" x:Name="SentFriends" Visibility="Collapsed">
+                    <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserSentListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" Height="60" Width="570">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
+
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="DeleteFriend" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                        <Button.Content>
+                                            <Image Source="IMGs/delete.png" Width="30" Height="30"/>
+                                        </Button.Content>
+                                    </Button>
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </Grid>
+                <Grid Grid.Row="2" x:Name="RecieveFriends" Visibility="Collapsed">
+                    <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserRecieveListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" Height="60" Width="570">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
+
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="DeleteFriend" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                        <Button.Content>
+                                            <Image Source="IMGs/delete.png" Width="30" Height="30"/>
+                                        </Button.Content>
+                                    </Button>
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </Grid>
 
             </Grid>
             <Grid Height="40">
