@@ -7,43 +7,67 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="600"
       Title="FriendsPage">
-
+    <Page.Resources>
+        <Style x:Key="DisabledStyle" TargetType="{x:Type Control}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="OpacityMask" Value="{x:Null}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid >
         <Grid x:Name="TopGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
-                <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid HorizontalAlignment="Center" Height="60" Width="570">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="60"/>
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="IMGs/StockUsr.png"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="FriendsBT" Click="SwitchToFriends" Width="175" Background="#FF512DA8" Foreground="White" Style="{StaticResource MaterialDesignOutlinedDarkButton}" Content="Друзья"/>
+                    <Button x:Name="SentFriendsBT" Click="SwitchToSentFriends" Width="175" Style="{StaticResource MaterialDesignOutlinedDarkButton}" Content="Отправленные" Grid.Column="1"/>
+                    <Button x:Name="ReceivedFriendsBT" Click="SwitchToRecievedToFriends" Width="175" Style="{StaticResource MaterialDesignOutlinedDarkButton}" Content="Входящие" Grid.Column="2"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" x:Name="ListViewsGrid">
+                <Grid Grid.Row="2" x:Name="CurrentFriends">
+                    <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" Height="60" Width="570">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
 
-                                </StackPanel>
-                                <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="DeleteFriend" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
-                                    <Button.Content>
-                                        <Image Source="IMGs/delete.png" Width="30" Height="30"/>
-                                    </Button.Content>
-                                </Button>
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="DeleteFriend" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                        <Button.Content>
+                                            <Image Source="IMGs/delete.png" Width="30" Height="30"/>
+                                        </Button.Content>
+                                    </Button>
 
 
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </Grid>
 
             </Grid>
             <Grid Height="40">

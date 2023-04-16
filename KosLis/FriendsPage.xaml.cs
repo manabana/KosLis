@@ -177,6 +177,50 @@ namespace KosLis
         {
 
         }
+
+        private void SwitchToFriends(object sender, RoutedEventArgs e)
+        {
+            FriendsBT.Foreground = Brushes.White;
+            FriendsBT.Background = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            FriendsBT.IsEnabled = false;
+            SentFriendsBT.IsEnabled = true;
+            ReceivedFriendsBT.IsEnabled = true;
+            FriendsBT.Opacity = 1;
+            SentFriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            SentFriendsBT.Background = null;
+            ReceivedFriendsBT.Background = null;
+            ReceivedFriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+        }
+
+        private void SwitchToSentFriends(object sender, RoutedEventArgs e)
+        {
+            SentFriendsBT.Foreground = Brushes.White;
+            SentFriendsBT.Background = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            SentFriendsBT.IsEnabled = false;
+            FriendsBT.IsEnabled = true;
+            ReceivedFriendsBT.IsEnabled= true;
+            SentFriendsBT.Opacity = 1;
+            FriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            FriendsBT.Background = null;
+            ReceivedFriendsBT.Background = null;
+            ReceivedFriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+
+        }
+
+        private void SwitchToRecievedToFriends(object sender, RoutedEventArgs e)
+        {
+            ReceivedFriendsBT.Foreground = Brushes.White;
+            ReceivedFriendsBT.Background = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            ReceivedFriendsBT.IsEnabled = false;
+            SentFriendsBT.IsEnabled = true;
+            FriendsBT.IsEnabled = true;
+            ReceivedFriendsBT.Opacity = 1;
+            SentFriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+            SentFriendsBT.Background = null;
+            FriendsBT.Background = null;
+            FriendsBT.Foreground = new SolidColorBrush(Color.FromRgb(81, 45, 168));
+
+        }
     }
     public enum MessageType
     {
