@@ -1,0 +1,89 @@
+﻿<Page x:Class="KosLis.FriendsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KosLis"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="FriendsPage">
+
+    <Grid >
+        <Grid x:Name="TopGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Center" Height="60" Width="570">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
+
+                                </StackPanel>
+                                <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="DeleteFriend" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                    <Button.Content>
+                                        <Image Source="IMGs/delete.png" Width="30" Height="30"/>
+                                    </Button.Content>
+                                </Button>
+
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+            <Grid Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Width="550" FontSize="16" Foreground="LightGray" x:Name="FriendTB" Background="#232323"/>
+                <Button Click="AddFriend" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Grid.Column="1">
+                    <Button.Content>
+                        <Image Height="35" Width="35" Source="IMGs/Addfriend.png"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+        </Grid>
+        <Grid Visibility="Collapsed" Opacity="0" x:Name="MessageGrid" Grid.RowSpan="2">
+            <Grid MinHeight="100" MaxHeight="200" Width="400" Margin="0,80,0,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.RowSpan="2" Fill="#242424"  RadiusX="15" RadiusY="15"/>
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Click="ButClicked" Height="25" Width="80" x:Name="Button1" Background="#FF290A5F" BorderBrush="#FF290A5F"/>
+                        <Button Click="ButClicked" Width="80" Height="25" x:Name="Button2" Margin="50,0,0,0" BorderBrush="#FF290A5F" Background="#FF290A5F"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="MessageIcon" MinWidth="30" MaxHeight="60" MaxWidth="60" MinHeight="30" Source="IMGs/UnkErr.png"/>
+                    <TextBlock x:Name="MessageText" Grid.Column="1" Text="" FontSize="16" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Page>

@@ -1,0 +1,182 @@
+﻿<Page x:Class="KosLis.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KosLis"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="625"
+      Title="ProfilePage" VerticalAlignment="Top">
+
+    <Grid Width="600" MinHeight="450">
+        <ScrollViewer>
+            <Grid x:Name="TopGrid">
+                <StackPanel>
+                    <Grid Height="380">
+                        <Rectangle RadiusX="15" RadiusY="15" Fill="#232323"/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1" HorizontalAlignment="Center" x:Name="ProfilePhoto" VerticalAlignment="Center" MouseEnter="AnimationIn" MouseLeave="AnimationOut" Height="165" Width="165">
+                                    <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="165" Width="165">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Ellipse x:Name="rndAnim" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="White" StrokeThickness="1" Height="165" Width="165">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="IMGs/graypencil.png" Stretch="UniformToFill"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Button MouseEnter="ToProfileIn" MouseLeave="ToProfileOut" Click="ToProfileBT" Height="165" Width="165">
+                                        <Button.Template>
+                                            <ControlTemplate  TargetType="Button">
+                                                <Grid>
+                                                    <Ellipse Height="165" Width="165" Fill="Black" Opacity="0"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </Grid>
+
+
+                            </Grid>
+                            <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
+                                <Label FontSize="16" Content="E-mail:"/>
+                                <Label FontSize="16" x:Name="EMailTB"/>
+                                <TextBox Foreground="White" FontSize="16" x:Name="EmailEditor" Visibility="Collapsed"/>
+                                <Button x:Name="EmailEditBT" Click="EditEmail" Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
+                                    <Button.Content>
+                                        <Image Source="IMGs/pencil.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="ConfirmEmailEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="✔" Foreground="DarkGreen" FontSize="16" Click="ApplyEmail"/>
+                                <Button Click="UndoClicked" x:Name="UndoEmailEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="❌" Foreground="DarkRed" FontSize="16"/>
+                            </StackPanel>
+                            <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
+                                <Label FontSize="16" Content="Nickname:"/>
+                                <Label FontSize="16" x:Name="NicknameTB"/>
+                                <TextBox Foreground="White" FontSize="16" x:Name="NicknameEditor" Visibility="Collapsed"/>
+                                <Button x:Name="NicknameEditBT" Click="EditNickname" Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
+                                    <Button.Content>
+                                        <Image Source="IMGs/pencil.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="ConfirmNicknameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="✔" Foreground="DarkGreen" FontSize="16"/>
+                                <Button Click="UndoClicked" x:Name="UndoNicknameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="❌" Foreground="DarkRed" FontSize="16"/>
+
+                            </StackPanel>
+                            <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
+                                <Label FontSize="16" Content="Name:"/>
+                                <Label FontSize="16" x:Name="NameTB"/>
+                                <TextBox Foreground="White" FontSize="16" x:Name="NameEditor" Visibility="Collapsed"/>
+                                <Button x:Name="NameEditBT" Click="EditName"  Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
+                                    <Button.Content>
+                                        <Image Source="IMGs/pencil.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="ConfirmNameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="✔" Foreground="DarkGreen" FontSize="16"/>
+                                <Button Click="UndoClicked" x:Name="UndoNameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="❌" Foreground="DarkRed" FontSize="16"/>
+
+
+                            </StackPanel>
+                            <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
+                                <Label FontSize="16" Content="Surname:"/>
+                                <Label FontSize="16" x:Name="SurnameTB"/>
+                                <TextBox Foreground="White" FontSize="16" x:Name="SurnameEditor" Visibility="Collapsed"/>
+
+                                <Button x:Name="SurnameEditBT" Click="EditSurname" Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
+                                    <Button.Content>
+                                        <Image Source="IMGs/pencil.png"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="ConfirmSurnameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="✔" Foreground="DarkGreen" FontSize="16"/>
+                                <Button Click="UndoClicked" x:Name="UndoSurnameEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="❌" Foreground="DarkRed" FontSize="16"/>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                    <Grid Height="40" Width="546" Margin="0,15,0,0">
+                        <Rectangle Fill="#232323" RadiusX="15" RadiusY="15"/>
+                        <Label HorizontalAlignment="Center" Content="Мои посты" FontSize="16" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Margin="0,0,0,0">
+                        <ListView HorizontalAlignment="Center" x:Name="FeedList" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="PostPreview" Width="546">
+                                        <Rectangle RadiusX="15" RadiusY="15" Fill="#171717"/>
+                                        <StackPanel>
+                                            <StackPanel  Orientation="Vertical">
+                                                <Grid>
+                                                    <Rectangle Fill="#242424" RadiusX="15" RadiusY="15"/>
+                                                    <StackPanel Margin="0,4,0,4" Width="540" Orientation="Horizontal" FlowDirection="LeftToRight">
+                                                        <Ellipse Width="50" Height="50">
+                                                            <Ellipse.Fill>
+                                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                                            </Ellipse.Fill>
+                                                        </Ellipse>
+                                                        <StackPanel Orientation="Vertical" FlowDirection="LeftToRight">
+                                                            <Label Content="{Binding userName}" FontSize="16"/>
+                                                            <Label Content="{Binding postDate}" FontSize="12"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                </Grid>
+                                                <Label x:Name="PostTTL" Content="{Binding postTitle}" FontSize="20"/>
+                                                <Label x:Name="PostTXT" Content="{Binding postText}" FontSize="14"/>
+
+                                                <Grid MaxWidth="544" MaxHeight="306" Visibility="Visible" Background="Black" >
+                                                    <Image Source="{Binding postImage}" MaxWidth="544" MaxHeight="306"/>
+                                                </Grid>
+                                                <StackPanel Margin="10" Orientation="Horizontal" Visibility="Visible">
+                                                    <Button BorderBrush="{x:Null}" Click="Rate" Content="🡹" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
+                                                    <Label x:Name="likesOut" Content="{Binding likeCount}" Margin="10" FontSize="18" Foreground="White"/>
+                                                    <Button BorderBrush="{x:Null}" Click="Rate" Content="🡻" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Rectangle Fill="{x:Null}" StrokeThickness="0"/>
+                    </Grid>
+                </StackPanel>
+                <Grid Visibility="Collapsed" Opacity="0" x:Name="MessageGrid" Grid.RowSpan="2">
+                    <Grid MinHeight="100" MaxHeight="200" Width="400" Margin="0,80,0,0" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Rectangle Grid.RowSpan="2" Fill="#242424"  RadiusX="15" RadiusY="15"/>
+                        <Grid Grid.Row="1">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Click="ButClicked" Height="25" Width="80" x:Name="Button1" Background="#FF290A5F" BorderBrush="#FF290A5F"/>
+                                <Button Click="ButClicked" Width="80" Height="25" x:Name="Button2" Margin="50,0,0,0" BorderBrush="#FF290A5F" Background="#FF290A5F"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="MessageIcon" MinWidth="30" MaxHeight="60" MaxWidth="60" MinHeight="30" Source="IMGs/UnkErr.png"/>
+                            <TextBlock x:Name="MessageText" Grid.Column="1" Text="" FontSize="16" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

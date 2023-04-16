@@ -1,0 +1,127 @@
+﻿<Page x:Class="KosLis.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KosLis"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage"
+    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+    <Page.Resources>
+        <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
+            <Grid>
+                <AdornerDecorator CacheMode="{Binding (wpf:ShadowAssist.CacheMode), RelativeSource={RelativeSource Self}}">
+                    <Grid>
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding (wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" Effect="{Binding (wpf:ElevationAssist.Elevation), Converter={x:Static converters:ShadowConverter.Instance}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <ProgressBar x:Name="ProgressBar" Background="{Binding (wpf:ButtonProgressAssist.IndicatorBackground), RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{Binding (wpf:ButtonProgressAssist.IndicatorBackground), RelativeSource={RelativeSource TemplatedParent}}" Foreground="{Binding (wpf:ButtonProgressAssist.IndicatorForeground), RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left" Height="{TemplateBinding Height}" IsIndeterminate="{Binding (wpf:ButtonProgressAssist.IsIndeterminate), RelativeSource={RelativeSource TemplatedParent}}" Maximum="{Binding (wpf:ButtonProgressAssist.Maximum), RelativeSource={RelativeSource TemplatedParent}}" Minimum="{Binding (wpf:ButtonProgressAssist.Minimum), RelativeSource={RelativeSource TemplatedParent}}" Opacity="{Binding (wpf:ButtonProgressAssist.Opacity), RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource MaterialDesignLinearProgressBar}" Value="{Binding (wpf:ButtonProgressAssist.Value), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Center" Visibility="{Binding (wpf:ButtonProgressAssist.IsIndicatorVisible), Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ButtonBase}}}">
+                            <ProgressBar.Clip>
+                                <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                                    <Binding ElementName="border" Path="ActualWidth"/>
+                                    <Binding ElementName="border" Path="ActualHeight"/>
+                                    <Binding ElementName="border" Path="CornerRadius"/>
+                                    <Binding ElementName="border" Path="BorderThickness"/>
+                                </MultiBinding>
+                            </ProgressBar.Clip>
+                        </ProgressBar>
+                    </Grid>
+                </AdornerDecorator>
+                <wpf:Ripple ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Focusable="False" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                    <wpf:Ripple.Clip>
+                        <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                            <Binding ElementName="border" Path="ActualWidth"/>
+                            <Binding ElementName="border" Path="ActualHeight"/>
+                            <Binding ElementName="border" Path="CornerRadius"/>
+                            <Binding ElementName="border" Path="BorderThickness"/>
+                        </MultiBinding>
+                    </wpf:Ripple.Clip>
+                </wpf:Ripple>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="wpf:ShadowAssist.Darken" TargetName="border" Value="True"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" Value="0.38"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid x:Name="SignGrid" Height="370" Width="350" >
+            <Rectangle RadiusX="15" RadiusY="15" Fill="{DynamicResource MaterialDesignPaper}"/>
+            <StackPanel x:Name="LoginStack" Visibility="Visible">
+                <TextBlock Margin="0,45,0,0" Foreground="LightGray" FontSize="26" Text="Войдите в ваш аккаунт" HorizontalAlignment="Center"  />
+                <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" Foreground="LightGray">
+                    Ещё не в системе? <Hyperlink Click="MoveToReg">Регистрация</Hyperlink>
+                </TextBlock>
+                <TextBox TabIndex="0" LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="EmailTBL" Foreground="DarkGray" Tag="Электронная почта" Text="Электронная почта" FontSize="16" Width="250" Margin="0,30,0,0"/>
+                <TextBox Visibility="Collapsed" TabIndex="1" LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="PasswordTBL" Foreground="DarkGray" Tag="Пароль" Text="Пароль" FontSize="16" Width="250" Margin="0,20,0,0"/>
+                <StackPanel Margin="0,25,0,0"  Width="250" Orientation="Horizontal">
+                    <Grid Margin="0,0,0,0" Width="210">
+                        <TextBlock x:Name="tblPasswordHint" FontSize="16" Width="210" VerticalAlignment="Center" Text="Пароль" Foreground="DarkGray"/>
+                        <PasswordBox KeyUp="PasswordDown" Name="pbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" Visibility="Visible" GotFocus="PWBCleaning"/>
+                        <TextBox KeyUp="TextBoxDown" Name="tbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" GotFocus="PWBCleaning" Visibility="Collapsed"/>
+                    </Grid>
+                    <Button Template="{DynamicResource ButtonTemplate1}" Click="PWVisibilitySwitch" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
+                        <Image x:Name="PWVis" Source="IMGs/show.png" Width="30" Height="30"/>
+                    </Button>
+                </StackPanel>
+                <Button TabIndex="2" Click="LoginSendBT" Height="30" Width="250" Margin="0,40,0,0" Content="Войти в аккаунт"/>
+                <Button Foreground="LightGray" FontSize="12" Margin="10" Content="Забыли пароль?" Style="{StaticResource MaterialDesignFlatAccentButton}" Height="25" Width="125"/>
+            </StackPanel>
+            <StackPanel x:Name="RegStack" Visibility="Collapsed">
+                <TextBlock Margin="0,20,0,0" Foreground="LightGray" FontSize="26" Text="Создайте аккаунт" HorizontalAlignment="Center"  />
+                <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" Foreground="LightGray">
+                    Уже в системе? <Hyperlink Click="MoveToLog">Войти</Hyperlink>
+                </TextBlock>
+                <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="EmailTB" TabIndex="0" Foreground="DarkGray" Tag="Электронная почта" Text="Электронная почта" FontSize="16" Width="250" Margin="0,30,0,0"/>
+                <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NicknameTB" TabIndex="0" Foreground="DarkGray" Tag="Имя пользователя" Text="Имя пользователя" FontSize="16" Width="250" Margin="0,30,0,0"/>
+                <StackPanel Orientation="Horizontal" Width="250" Margin="0,30,0,0">
+                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NameTB" TabIndex="0" Foreground="DarkGray" Tag="Имя" Text="Имя" FontSize="16" Width="120" Margin="0,0,10,0"/>
+                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="SurnameTB" TabIndex="0" Foreground="DarkGray" Tag="Фамилия" Text="Фамилия" FontSize="16" Width="120" Margin="0,0,0,0"/>
+
+                </StackPanel>
+                <StackPanel Margin="0,25,0,0"  Width="250" Orientation="Horizontal">
+                    <Grid Margin="0,0,0,0" Width="210">
+                        <TextBlock x:Name="tbl1PasswordHint" FontSize="16" Width="210" VerticalAlignment="Center" Text="Пароль" Foreground="DarkGray"/>
+                        <PasswordBox KeyUp="PasswordDown1" Name="PasswordPB" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" Visibility="Visible" GotFocus="PWBCleaning1"/>
+                        <TextBox KeyUp="TextBoxDown1" Name="PasswordTB" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" GotFocus="PWBCleaning1" Visibility="Collapsed"/>
+                    </Grid>
+                    <Button Template="{DynamicResource ButtonTemplate1}" Click="PWVisibilitySwitch1" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
+                        <Image x:Name="PWVis1" Source="IMGs/show.png" Width="30" Height="30"/>
+                    </Button>
+                </StackPanel>
+
+
+                <Button Height="30" Width="250" Margin="0,40,0,0" Click="CreateAccSend" Content="Создать аккаунт"/>
+            </StackPanel>
+            <StackPanel x:Name="MessageStack" Visibility="Collapsed">
+                <Image x:Name="ErrIMG" Margin="0,20,0,0" Source="IMGs/serverErr.png" Height="150" Width="150"/>
+                <TextBlock x:Name="ErrText" Text="Сервер недоступен!" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" TextAlignment="Center" Height="120" Width="300" FontSize="24"/>
+                <Button Margin="0,10,0,0" Content="Ок" Width="100" Background="#FF1E48C8" BorderBrush="{x:Null}" Click="ErrOk"/>
+            </StackPanel>
+            <Grid x:Name="LoadingStack" Visibility="Collapsed">
+                <Image Source="IMGs/Loading.png" Height="200" Width="200" >
+                    <Image.RenderTransform>
+                        <RotateTransform x:Name="rotate"
+                         CenterX="100"
+                         CenterY="100"/>
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

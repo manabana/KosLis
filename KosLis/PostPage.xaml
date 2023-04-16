@@ -1,0 +1,109 @@
+﻿<Page x:Class="KosLis.PostPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KosLis"
+      mc:Ignorable="d" 
+      d:DesignHeight="460" d:DesignWidth="625"
+      Title="PostPage">
+
+    <Grid Width="600" >
+        <Grid Height="460" VerticalAlignment="Top">
+            <Rectangle RadiusX="15" RadiusY="15" Fill="#353535"/>
+            <StackPanel x:Name="PostStack" Visibility="Visible">
+                <TextBox Foreground="DarkGray" Margin="0,13,0,0" Height="35" FontSize="16" Tag="Заголовок" Text="Заголовок" Width="400" GotFocus="TBC" LostFocus="TBF" x:Name="PostTitleTB" Background="#FF272727" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid MouseEnter="BlurIMG" MouseLeave="FocusIMG" Margin="10" Width="400" Height="225" Background="#FF1D1D1D">
+                    <Image x:Name="PreImg" Width="400" Height="225" Visibility="Collapsed"/>
+                    <Grid Visibility="Collapsed" x:Name="DelGrid" Height="100" Width="100">
+                        <Rectangle Fill="#353535" RadiusX="15" RadiusY="15"/>
+                        <Image Source="IMGs/delete.png" Width="70" Height="70"/>
+                        <Button x:Name="DelBT" Width="100" Height="100" Click="DeleteIMGBT" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                    </Grid>
+                    <Rectangle x:Name="PreRect" Width="400" Height="225" Margin="0,0,0,15"/>
+                    <StackPanel x:Name="ImgSelect" VerticalAlignment="Center">
+                        <Label Content="Выберите фото" HorizontalAlignment="Center" FontSize="24"/>
+                        <Button x:Name="selectImgBT" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="20" Width="100" Content="Выбрать" Click="SelectImage" BorderBrush="White" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+                <TextBox TextWrapping="Wrap" Foreground="White" x:Name="ContentTextRTB" Style="{x:Null}" BorderThickness="0" Width="400" Height="100"  Background="#FF272727"/>
+                <Button x:Name="PublishBT" Width="140" Height="40" Margin="0,10,0,0" Click="PublishPostBT" Background="#FF2A2E4E" BorderBrush="{x:Null}" Foreground="White">
+                    <Button.Content>
+                        <Grid>
+                            <Label Visibility="Visible" x:Name="publLBL" Content="Опубликовать"/>
+                            <Image Visibility="Collapsed" x:Name="loadLBL" Source="IMGs/Loading.png" Height="30" Width="30" >
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="rotate"
+                         CenterX="15"
+                         CenterY="15"/>
+                                </Image.RenderTransform>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+
+                        </Grid>
+
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            <Grid x:Name="MessageStack" Visibility="Collapsed">
+                <Grid Height="200" Width="350">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="165"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Grid.RowSpan="2"  RadiusX="15" RadiusY="15" Fill="#0F0F0F"/>
+                    <StackPanel Grid.Row="0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                        <Image x:Name="MessageIMG" Source="IMGs/UnkErr.png" Height="100" Margin="10,0,10,0"/>
+                        <TextBlock TextWrapping="Wrap" Height="100" Width="220" FontSize="16" HorizontalAlignment="Center" TextAlignment="Center" x:Name="MessageText" Foreground="White" />
+                    </StackPanel>
+                    <Button Grid.Row="1" Width="75" Content="ОК" Click="CloseMessage" Background="{x:Null}" BorderBrush="White" />
+                </Grid>
+
+            </Grid>
+            <Grid Height="235" x:Name="PostPreview" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="1" Content="Ок" Height="25" FontSize="12"  Width="100" Background="{x:Null}" BorderBrush="#FF3900A0" BorderThickness="1" Click="Button_Click"/>
+                <Rectangle RadiusX="15" RadiusY="15" Fill="#0A0A0A"/>
+                <StackPanel>
+                    <StackPanel  Orientation="Vertical">
+                        <Grid>
+                            <Rectangle Fill="#141414" RadiusX="15" RadiusY="15"/>
+                            <StackPanel Margin="0,4,0,4" Width="570" Orientation="Horizontal" FlowDirection="LeftToRight">
+                                <Ellipse Width="50" Height="50">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Orientation="Vertical" FlowDirection="LeftToRight">
+                                    <Label Content="UserName" FontSize="16"/>
+                                    <Label Content="XX.XX.XXXX" FontSize="12"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                        </Grid>
+                        <Label x:Name="PostTTL" Content="Post Title" FontSize="20"/>
+                        <Grid Visibility="Collapsed" Background="DarkGray" Width="592" Height="333">
+                            <Image/>
+                        </Grid>
+                        <Label x:Name="PostTXT" Content="Post Text" FontSize="18"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

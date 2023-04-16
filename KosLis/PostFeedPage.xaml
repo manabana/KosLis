@@ -1,0 +1,74 @@
+﻿<Page x:Class="KosLis.PostFeedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KosLis"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="PostFeedPage">
+
+    <Grid>
+        <Grid VerticalAlignment="Top" x:Name="LoadingStack" Visibility="Collapsed">
+            <Image Source="IMGs/Loading.png" Height="80" Width="80" >
+                <Image.RenderTransform>
+                    <RotateTransform x:Name="rotate"
+                         CenterX="40"
+                         CenterY="40"/>
+                </Image.RenderTransform>
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+        </Grid>
+
+        <ListView x:Name="FeedList" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="PostPreview" Width="592">
+                        <Rectangle RadiusX="15" RadiusY="15" Fill="#171717"/>
+                        <StackPanel>
+                            <StackPanel  Orientation="Vertical">
+                                <Grid>
+                                    <Rectangle Fill="#242424" RadiusX="15" RadiusY="15"/>
+                                    <StackPanel Margin="0,4,0,4" Width="592" Orientation="Horizontal" FlowDirection="LeftToRight">
+                                        <Ellipse Width="50" Height="50">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <StackPanel Orientation="Vertical" FlowDirection="LeftToRight">
+                                            <Label Content="{Binding userName}" FontSize="16"/>
+                                            <Label Content="{Binding postDate}" FontSize="12"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </Grid>
+                                <Label x:Name="PostTTL" Content="{Binding postTitle}" FontSize="20"/>
+                                <Label x:Name="PostTXT" Content="{Binding postText}" FontSize="14"/>
+
+                                <Grid MaxWidth="584" MaxHeight="328.5" Visibility="Visible" Background="Black" >
+                                    <Image Source="{Binding postImage}" MaxWidth="584" MaxHeight="328.5"/>
+                                </Grid>
+                                <StackPanel Margin="10" Orientation="Horizontal" Visibility="Visible">
+                                    <Button BorderBrush="{x:Null}" Click="Rate" Content="🡹" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
+                                    <Label x:Name="likesOut" Content="{Binding likeCount}" Margin="10" FontSize="18" Foreground="White"/>
+                                    <Button BorderBrush="{x:Null}" Click="Rate" Content="🡻" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
