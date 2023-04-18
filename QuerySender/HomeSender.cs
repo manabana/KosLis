@@ -372,7 +372,7 @@ namespace QuerySender
 
         public static string AskPosts()
         {
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[2097152];
 
             // Соединяемся с удаленным устройством
 
