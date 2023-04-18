@@ -387,6 +387,21 @@ namespace QuerySender
             try
             {
                 sender.Connect(ipEndPoint);
+                string message = $"postsList;all";
+
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+
+                // Отправляем данные через сокет
+                int bytesSent = sender.Send(msg);
+
+                // Получаем ответ от сервера
+                int bytesRec = sender.Receive(bytes);
+
+                // Освобождаем сокет
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
             }
             catch (System.Net.Sockets.SocketException)
@@ -394,21 +409,6 @@ namespace QuerySender
                 return "Exception;ServerNotResponding";
             }
 
-            string message = $"postsList;all";
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
         }
 
@@ -440,30 +440,56 @@ namespace QuerySender
             try
             {
                 sender.Connect(ipEndPoint);
+                string message = $"newpost;{usrId};{title};{contentTxt};{passw};{IMGAvlbl}";
 
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+
+                // Отправляем данные через сокет
+                int bytesSent = sender.Send(msg);
+
+                // Получаем ответ от сервера
+                int bytesRec = sender.Receive(bytes);
+
+                // Освобождаем сокет
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
             }
             catch (System.Net.Sockets.SocketException)
             {
                 return "Exception;ServerNotResponding";
             }
 
-            string message = $"newpost;{usrId};{title};{contentTxt};{passw};{IMGAvlbl}";
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
         }
-        public static string SendImage(byte[] image)
+        public static string CheckPostImage(int postId)
+        {
+            byte[] bytes = new byte[128];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"checkImage;{postId}";
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+
+
+
+        }
+        public static string SendImage(byte[] image, int postId)
         {
             Thread.Sleep(250);
             // Буфер для входящих данных
@@ -482,114 +508,74 @@ namespace QuerySender
             try
             {
                 sender.Connect(ipEndPoint);
-
-            }
-            catch (System.Net.Sockets.SocketException)
-            {
-                return "Exception;ServerNotResponding";
-            }
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-
-            try
-            {
                 int bytesSent = sender.Send(image);
                 // Получаем ответ от сервера
                 Thread.Sleep(100);
                 sender.Shutdown(SocketShutdown.Both);
                 sender.Close();
-                return "IMGAdded";//Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-
-
+                string checker = CheckPostImage(postId);
+                if(checker == "True")
+                {
+                    return "IMGAdded";//Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                }
+                else
+                {
+                    return "IMGNotFound";
+                }
             }
-            catch 
+            catch (System.Net.Sockets.SocketException)
             {
-                return "ConnectionLost";
+                return "Exception;ServerNotResponding";
             }
-            // Отправляем данные через сокет
-            // Освобождаем сокет
         }
 
         public static string AskPhoto(int id)
         {
-            // Буфер для входящих данных
             byte[] bytes = new byte[1024];
-
-            // Соединяемся с удаленным устройством
-
-            // Устанавливаем удаленную точку для сокета
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Соединяем сокет с удаленной точкой
             try
             {
                 sender.Connect(ipEndPoint);
-
+                string message = $"profphoto;{id}";
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
             }
             catch (System.Net.Sockets.SocketException)
             {
                 return "Exception;ServerNotResponding";
             }
-            string message = $"profphoto;{id}";
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
         }
         public static string AddFriend(int userId, string friendNN)
         {
-            // Буфер для входящих данных
             byte[] bytes = new byte[1024];
-
-            // Соединяемся с удаленным устройством
-
-            // Устанавливаем удаленную точку для сокета
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Соединяем сокет с удаленной точкой
             try
             {
                 sender.Connect(ipEndPoint);
-
+                string message = $"addfriend;{userId};{friendNN}";
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
             }
             catch (System.Net.Sockets.SocketException)
             {
                 return "Exception;ServerNotResponding";
             }
-            string message = $"addfriend;{userId};{friendNN}";
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
-            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
         }
 

@@ -33,21 +33,20 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
-                string debyted = Encoding.UTF8.GetString(bytes, 0, 256);
-                if (debyted.IndexOf("ImageNotFound") > -1)
+                string checker = HomeSender.CheckPostImage(int.Parse(splitedB[0]));
+                if (checker == "True")
                 {
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6])));
-
+                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
+                    string debyted = Encoding.UTF8.GetString(bytes, 0, 256);
+                    BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
                 }
                 else
                 {
-                    BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
-
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6])));
                 }
-                posts = posts.OrderByDescending(p => p.postId).ToList();
             }
+            posts = posts.OrderByDescending(p => p.postId).ToList();
             Dispatcher.Invoke(() => {
                 FeedList.ItemsSource = null;
                 FeedList.ItemsSource = posts;

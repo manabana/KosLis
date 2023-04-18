@@ -157,6 +157,7 @@ namespace KosLis
         private void ResetUI()
         {
             DeleteIMGBT(null, null);
+            FocusIMG(null, null);
             PostTitleTB.Text = "";
             ContentTextRTB.Text = "";
             PostTitleTB.IsEnabled = true;
@@ -218,13 +219,14 @@ namespace KosLis
             }
             else if(resp.IndexOf("PAWaitingImage") >= 0)
             {
-                string respond = HomeSender.SendImage(ImageBytes);
+                string[] strings = resp.Split(';');
+                string respond = HomeSender.SendImage(ImageBytes, int.Parse(strings[1]));
                 if(respond == "IMGAdded")
                 {
                     CheckMark();
                     Dispatcher.Invoke(() => ResetUI());
                 }
-                else if (respond == "Exception;Err")
+                else if (respond == "IMGNotFound")
                 {
                     MessageShow("Неизвестная ошибка", 0);
                 }
