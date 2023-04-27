@@ -11,6 +11,7 @@ using System.Security.AccessControl;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
+using System.Reflection.Emit;
 
 namespace QuerySender
 {
@@ -25,7 +26,7 @@ namespace QuerySender
     }
     public enum AskUsersType
     {
-        AskEveryoneExcept, AskEveryone, AskSingle, AskFriends
+        AskEveryoneExcept, AskEveryone, AskSingle, AskFriends, AskReceiveRequests, AskSendRequests
     }
     public class HomeSender
     {
@@ -300,6 +301,12 @@ namespace QuerySender
                 case AskUsersType.AskFriends:
                     message = $"usersList;friends;{userId}";
                     break;
+                case AskUsersType.AskSendRequests:
+                    message = $"usersLIst;sends;{userId}";
+                    break;
+                case AskUsersType.AskReceiveRequests:
+                    message = $"usersList;receives;{userId}";
+                    break;
                 default:
                     message = "";
                     break;
@@ -553,7 +560,7 @@ namespace QuerySender
                 return "Exception;ServerNotResponding";
             }
         }
-        public static string AddFriend(int userId, string friendNN)
+        public static string AddFriend(int userId, string friendNN, string password)
         {
             byte[] bytes = new byte[1024];
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
@@ -563,7 +570,7 @@ namespace QuerySender
             try
             {
                 sender.Connect(ipEndPoint);
-                string message = $"addfriend;{userId};{friendNN}";
+                string message = $"sendFriendRequest;{userId};{friendNN};{password}";
                 Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
                 byte[] msg = Encoding.UTF8.GetBytes(message);
                 int bytesSent = sender.Send(msg);

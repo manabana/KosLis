@@ -85,37 +85,31 @@ namespace KosLis
 
         private void ToProfileBT(object sender, RoutedEventArgs e)
         {
-            ProfilePage profilePage = new ProfilePage(userId, Email,Nickname,Name,Surname);
-            ContentFrame.Content = profilePage;
+            ContentFrame.Content = new ProfilePage(userId, Email, Nickname, Name, Surname);
         }
 
         private void NewPostBT(object sender, RoutedEventArgs e)
         {
-            PostPage postPage = new PostPage(userId, Password);
-            ContentFrame.Content = postPage;
+            ContentFrame.Content = new PostPage(userId, Password);
         }
 
         private void ShowFeedBT(object sender, RoutedEventArgs e)
         {
-            PostFeedPage postFeed = new PostFeedPage();
-            ContentFrame.Content = postFeed;
+            ContentFrame.Content = new PostFeedPage();
         }
 
         private void OpenOptions(object sender, RoutedEventArgs e)
         {
-            var page = new OptionsPage();
-            ContentFrame.Content = page;
+            ContentFrame.Content = new OptionsPage();
         }
 
         private void MessengerOpen(object sender, RoutedEventArgs e)
         {
-            var mespage = new MessengerPage(userId,Nickname,Password);
-            ContentFrame.Content = mespage;
+            ContentFrame.Content = new MessengerPage(userId, Nickname, Password);
         }
         private void OpenFriends(object sender, RoutedEventArgs e)
         {
-            FriendsPage friends = new FriendsPage(userId);
-            ContentFrame.Content = friends;
+            ContentFrame.Content = new FriendsPage(userId, Password);
 
         }
 

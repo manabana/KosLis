@@ -25,17 +25,20 @@ namespace KosLis
     public partial class FriendsPage : Page
     {
         internal int UserID { get; set; }
-        public FriendsPage(int userid)
+        private string Password;
+        public FriendsPage(int userid, string password)
         {
             InitializeComponent();
             UserID = userid;
-            DisplayUsers();
+            Password = password;
+            UserListView.ItemsSource = DisplayFriends();
+            UserSentListView.ItemsSource = DisplaySends();
+            UserRecieveListView.ItemsSource = DisplayReceives();
         }
 
         private void AddFriend(object sender, RoutedEventArgs e)
         {
             MessageFrame($"Вы действительно хотите добавить пользователя {FriendTB.Text} в друзья?", MessageType.Confirmation);
-            
         }
 
 
@@ -106,14 +109,14 @@ namespace KosLis
             {
                 if(button.Tag.ToString() == "confirmYes")
                 {
-                    string req = HomeSender.AddFriend(UserID, FriendTB.Text);
-                    if(req == "added")
+                    string req = HomeSender.AddFriend(UserID, FriendTB.Text, Password);
+                    if(req == "OK")
                     {
                         Button1.Tag = "";
                         Button2.Tag = "";
                         Button2.Visibility = Visibility.Visible;
-                        MessageFrame($"{FriendTB.Text} был добавлен в друзья!", MessageType.Successful);
-                        DisplayUsers();
+                        MessageFrame($"Заявка в друзья отправлена пользователю {FriendTB.Text}", MessageType.Successful);
+                        DisplayFriends();
                         return;
                     }
                     else if(req == "friendNotFound")
@@ -157,7 +160,7 @@ namespace KosLis
             TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
 
         }
-        private void DisplayUsers()
+        private List<Users> DisplayFriends()
         {
             List<Users> users = new List<Users>();
             users.Clear();
@@ -170,7 +173,39 @@ namespace KosLis
                 users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
 
             }
-            UserListView.ItemsSource = users;
+            return users;
+        }
+        private List<Users> DisplayReceives()
+        {
+            List<Users> users = new List<Users>();
+            users.Clear();
+            string resp = HomeSender.AskUsers(UserID, AskUsersType.AskReceiveRequests);
+            Console.WriteLine(resp);
+            string[] splitedA = resp.Split('|');
+            for (int i = 0; i < splitedA.Count() - 1; i++)
+            {
+                string[] splitedB = splitedA[i].Split(';');
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+
+            }
+            return users;
+
+        }
+        private List<Users> DisplaySends()
+        {
+            List<Users> users = new List<Users>();
+            users.Clear();
+            string resp = HomeSender.AskUsers(UserID, AskUsersType.AskSendRequests);
+            Console.WriteLine(resp);
+            string[] splitedA = resp.Split('|');
+            for (int i = 0; i < splitedA.Count() - 1; i++)
+            {
+                string[] splitedB = splitedA[i].Split(';');
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+
+            }
+            return users;
+
         }
 
         private void DeleteFriend(object sender, RoutedEventArgs e)
