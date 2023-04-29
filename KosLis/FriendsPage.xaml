@@ -168,7 +168,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Image x:Name="MessageIcon" MinWidth="30" MaxHeight="60" MaxWidth="60" MinHeight="30" Source="IMGs/UnkErr.png"/>
-                    <TextBlock x:Name="MessageText" Grid.Column="1" Text="" FontSize="16" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="MessageText" Margin="0,0,10,0" Grid.Column="1" Text="" FontSize="16" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
         </Grid>

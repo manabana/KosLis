@@ -116,7 +116,26 @@ namespace KosLis
                         Button2.Tag = "";
                         Button2.Visibility = Visibility.Visible;
                         MessageFrame($"Заявка в друзья отправлена пользователю {FriendTB.Text}", MessageType.Successful);
-                        DisplayFriends();
+                        UserListView.ItemsSource = DisplayFriends();
+                        UserSentListView.ItemsSource = DisplaySends();
+                        UserRecieveListView.ItemsSource = DisplayReceives();
+                        return;
+                    }
+                    if(req == "already")
+                    {
+                        Button1.Tag = "";
+                        Button2.Tag = "";
+                        Button2.Visibility = Visibility.Visible;
+                        MessageFrame($"Заявка пользователю {FriendTB.Text} была отправлена ранее", MessageType.Error);
+                        return;
+
+                    }
+                    if(req == "senderIsReceiver")
+                    {
+                        Button1.Tag = "";
+                        Button2.Tag = "";
+                        Button2.Visibility = Visibility.Visible;
+                        MessageFrame("Невозможно стать другом самому себе", MessageType.Error);
                         return;
                     }
                     else if(req == "friendNotFound")

@@ -302,7 +302,7 @@ namespace QuerySender
                     message = $"usersList;friends;{userId}";
                     break;
                 case AskUsersType.AskSendRequests:
-                    message = $"usersLIst;sends;{userId}";
+                    message = $"usersList;sends;{userId}";
                     break;
                 case AskUsersType.AskReceiveRequests:
                     message = $"usersList;receives;{userId}";
