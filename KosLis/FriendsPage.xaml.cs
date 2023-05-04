@@ -226,12 +226,6 @@ namespace KosLis
             return users;
 
         }
-
-        private void DeleteFriend(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SwitchToFriends(object sender, RoutedEventArgs e)
         {
             FriendsBT.Foreground = Brushes.White;
@@ -282,6 +276,67 @@ namespace KosLis
             CurrentFriends.Visibility = Visibility.Collapsed;
             SentFriends.Visibility = Visibility.Collapsed;
             RecieveFriends.Visibility = Visibility.Visible;
+        }
+        private void DeleteFriend(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+        }
+
+        private void AcceptRequestBT(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int acceptor = UserID;
+            int senderId = int.Parse(button.Tag.ToString());
+            string password = Password;
+            string resp = HomeSender.AcceptFriendRequest(senderId, acceptor, password);
+            if (resp == "OK")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Теперь вы друзья!", MessageType.Successful);
+            }
+            else if (resp == "already")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Вы уже друзья!", MessageType.Error);
+            }
+            else if (resp == "ICPassword")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Система безопасности отлонила доступ!", MessageType.Error);
+            }
+            else if (resp == "Exception;SQLWillNotStarted")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+            else if (resp == "Exception;ServerNotResponding")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Сервер недоступен!", MessageType.Error);
+            }
+        }
+
+        private void CancelRequest(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
         }
     }
     public enum MessageType
