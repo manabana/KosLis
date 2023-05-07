@@ -519,6 +519,18 @@ namespace QuerySender
             sender.Close();
             return Encoding.UTF8.GetString(bytes, 0, bytesRec);
         }
+        public static string RemoveFriend(int targetId, int removerId, string password)
+        {
+            return null;
+        }
+        public static string RejectRequest(int targetId, int rejectorId, string password)
+        {
+            return null;
+        }
+        public static string CancelRequest(int targetId, int cancellerId, string password)
+        {
+            return null;
+        }
 
     }
 }

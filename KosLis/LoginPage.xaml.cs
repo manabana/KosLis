@@ -76,11 +76,12 @@ namespace KosLis
             string response = LoginSender.SendRegisteringMessage(em, nn, nm, sn, pw);
             if (response == "EMUsed")
             {
-                MessageBox.Show("Email занят");
+                Dispatcher.Invoke(() => ErrOut(7));
+                
             }
             else if (response == "NNUsed")
             {
-                MessageBox.Show("Ник занят");
+                Dispatcher.Invoke(() => ErrOut(8));
             }
             else if (response.IndexOf("AccAdded") >= 0)
             {
@@ -258,7 +259,7 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     var uriSource5 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource5);
-                    ErrText.Text = "Электронная почта введена неверно";
+                    ErrText.Text = "Электронная почта введена неверно!";
                     break;
                 case 5:
                     LoginStack.Visibility = Visibility.Collapsed;
@@ -266,7 +267,7 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     var uriSource6 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource6);
-                    ErrText.Text = "Вы не ввели электронную почту";
+                    ErrText.Text = "Вы не ввели электронную почту!";
                     break;
                 case 6:
                     LoginStack.Visibility = Visibility.Collapsed;
@@ -274,8 +275,23 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     var uriSource7 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource7);
-                    ErrText.Text = "Минимальная длина пароля - 8 символов";
-
+                    ErrText.Text = "Минимальная длина пароля - 8 символов!";
+                    break;
+                case 7:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    var uriSource8 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource8);
+                    ErrText.Text = "E-mail занят!";
+                    break;
+                case 8:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    var uriSource9 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource9);
+                    ErrText.Text = "Ник занят!";
                     break;
 
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KosLis
+namespace KosLis//MessageBox.Show((SystemInformation.PowerStatus.BatteryLifePercent *100).ToString()+"%" , "Заряд батареи %"
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
