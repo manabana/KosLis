@@ -108,8 +108,9 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="60"/>
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                                    <Rectangle Grid.ColumnSpan="3" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
                                             <Ellipse.Fill>
@@ -119,7 +120,13 @@
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
 
                                     </StackPanel>
-                                    <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="AcceptRequestBT" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                    <Button Grid.Column="1" Height="35" Width="35" HorizontalAlignment="Center" Click="RejectRequest" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
+                                        <Button.Content>
+                                            <Image Source="IMGs/Cross.png" Width="30" Height="30"/>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button Grid.Column="2" Height="35" Width="35" HorizontalAlignment="Center" Click="AcceptRequestBT" Style="{StaticResource MaterialDesignIconButton}" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0" >
                                         <Button.Content>
                                             <Image Source="IMGs/AddFriend.png" Width="30" Height="30"/>
                                         </Button.Content>

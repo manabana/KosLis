@@ -521,15 +521,75 @@ namespace QuerySender
         }
         public static string RemoveFriend(int targetId, int removerId, string password)
         {
-            return null;
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"removeFriend;{targetId};{removerId};{password}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+
         }
         public static string RejectRequest(int targetId, int rejectorId, string password)
         {
-            return null;
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"rejectRequest;{targetId};{rejectorId};{password}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+
         }
         public static string CancelRequest(int targetId, int cancellerId, string password)
         {
-            return null;
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"cancelRequest;{targetId};{cancellerId};{password}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+
         }
 
     }

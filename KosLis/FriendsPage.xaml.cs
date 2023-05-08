@@ -280,6 +280,51 @@ namespace KosLis
         private void DeleteFriend(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
+            int targetId = int.Parse(button.Tag.ToString());
+            int removerid = UserID;
+            string password = Password;
+            string resp = HomeSender.RemoveFriend(targetId, removerid, password);
+            if (resp == "OK")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Пользователь удален из друзей!", MessageType.Successful);
+            }
+            else if (resp == "already")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Вы не друзья!", MessageType.Error);
+            }
+            else if (resp == "ICPassword")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Система безопасности отлонила доступ!", MessageType.Error);
+            }
+            else if (resp == "Exception;SQLWillNotStarted")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+            else if (resp == "Exception;ServerNotResponding")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Сервер недоступен!", MessageType.Error);
+            }
 
         }
 
@@ -333,9 +378,108 @@ namespace KosLis
             }
         }
 
+
         private void CancelRequest(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
+            int targetId = int.Parse(button.Tag.ToString());
+            int cancellerId = UserID;
+            string password = Password;
+            string resp = HomeSender.CancelRequest(targetId, cancellerId, password);
+            if (resp == "OK")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Заявка отменена!", MessageType.Successful);
+            }
+            else if (resp == "already")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Заявки и так не было!", MessageType.Error);
+            }
+            else if (resp == "ICPassword")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Система безопасности отлонила доступ!", MessageType.Error);
+            }
+            else if (resp == "Exception;SQLWillNotStarted")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+            else if (resp == "Exception;ServerNotResponding")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Сервер недоступен!", MessageType.Error);
+            }
+
+
+
+        }
+
+        private void RejectRequest(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int targetId = int.Parse(button.Tag.ToString());
+            int rejectorId = UserID;
+            string password = Password;
+            string resp = HomeSender.RejectRequest(targetId, rejectorId, password);
+            if (resp == "OK")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Заявка отклонена!", MessageType.Successful);
+            }
+            else if (resp == "already")
+            {
+                UserListView.ItemsSource = DisplayFriends();
+                UserSentListView.ItemsSource = DisplaySends();
+                UserRecieveListView.ItemsSource = DisplayReceives();
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Заявки и так не было!", MessageType.Error);
+            }
+            else if (resp == "ICPassword")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Система безопасности отлонила доступ!", MessageType.Error);
+            }
+            else if (resp == "Exception;SQLWillNotStarted")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+            else if (resp == "Exception;ServerNotResponding")
+            {
+                Button1.Tag = "";
+                Button2.Tag = "";
+                Button2.Visibility = Visibility.Visible;
+                MessageFrame("Сервер недоступен!", MessageType.Error);
+            }
 
         }
     }
