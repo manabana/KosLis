@@ -139,7 +139,6 @@
                     </ListView>
 
                 </Grid>
-
             </Grid>
             <Grid Height="40">
                 <Grid.ColumnDefinitions>

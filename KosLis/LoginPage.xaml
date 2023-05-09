@@ -61,15 +61,15 @@
                 <StackPanel Margin="0,25,0,0"  Width="250" Orientation="Horizontal">
                     <Grid Margin="0,0,0,0" Width="210">
                         <TextBlock x:Name="tblPasswordHint" FontSize="16" Width="210" VerticalAlignment="Center" Text="Пароль" Foreground="DarkGray"/>
-                        <PasswordBox KeyUp="PasswordDown" Name="pbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" Visibility="Visible" GotFocus="PWBCleaning"/>
-                        <TextBox KeyUp="TextBoxDown" Name="tbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" GotFocus="PWBCleaning" Visibility="Collapsed"/>
+                        <PasswordBox TabIndex="1" KeyUp="PasswordDown" Name="pbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" Visibility="Visible" GotFocus="PWBCleaning"/>
+                        <TextBox KeyUp="TextBoxDown" TabIndex="1" Name="tbPassword" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" GotFocus="PWBCleaning" Visibility="Collapsed"/>
                     </Grid>
-                    <Button Template="{DynamicResource ButtonTemplate1}" Click="PWVisibilitySwitch" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
+                    <Button Template="{DynamicResource ButtonTemplate1}" TabIndex="2" Click="PWVisibilitySwitch" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
                         <Image x:Name="PWVis" Source="IMGs/show.png" Width="30" Height="30"/>
                     </Button>
                 </StackPanel>
-                <Button TabIndex="2" Click="LoginSendBT" Height="30" Width="250" Margin="0,40,0,0" Content="Войти в аккаунт"/>
-                <Button Foreground="LightGray" FontSize="12" Margin="10" Content="Забыли пароль?" Style="{StaticResource MaterialDesignFlatAccentButton}" Height="25" Width="125"/>
+                <Button TabIndex="3" Click="LoginSendBT" Height="30" Width="250" Margin="0,40,0,0" Content="Войти в аккаунт"/>
+                <Button Foreground="LightGray" TabIndex="4" FontSize="12" Margin="10" Content="Забыли пароль?" Style="{StaticResource MaterialDesignFlatAccentButton}" Height="25" Width="125" Cursor="Hand"/>
             </StackPanel>
             <StackPanel x:Name="RegStack" Visibility="Collapsed">
                 <TextBlock Margin="0,20,0,0" Foreground="LightGray" FontSize="26" Text="Создайте аккаунт" HorizontalAlignment="Center"  />
@@ -77,25 +77,25 @@
                     Уже в системе? <Hyperlink Click="MoveToLog">Войти</Hyperlink>
                 </TextBlock>
                 <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="EmailTB" TabIndex="0" Foreground="DarkGray" Tag="Электронная почта" Text="Электронная почта" FontSize="16" Width="250" Margin="0,30,0,0"/>
-                <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NicknameTB" TabIndex="0" Foreground="DarkGray" Tag="Имя пользователя" Text="Имя пользователя" FontSize="16" Width="250" Margin="0,30,0,0"/>
+                <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NicknameTB" TabIndex="1" Foreground="DarkGray" Tag="Имя пользователя" Text="Имя пользователя" FontSize="16" Width="250" Margin="0,30,0,0"/>
                 <StackPanel Orientation="Horizontal" Width="250" Margin="0,30,0,0">
-                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NameTB" TabIndex="0" Foreground="DarkGray" Tag="Имя" Text="Имя" FontSize="16" Width="120" Margin="0,0,10,0"/>
-                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="SurnameTB" TabIndex="0" Foreground="DarkGray" Tag="Фамилия" Text="Фамилия" FontSize="16" Width="120" Margin="0,0,0,0"/>
+                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="NameTB" TabIndex="2" Foreground="DarkGray" Tag="Имя" Text="Имя" FontSize="16" Width="120" Margin="0,0,10,0"/>
+                    <TextBox LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="SurnameTB" TabIndex="3" Foreground="DarkGray" Tag="Фамилия" Text="Фамилия" FontSize="16" Width="120" Margin="0,0,0,0"/>
 
                 </StackPanel>
                 <StackPanel Margin="0,25,0,0"  Width="250" Orientation="Horizontal">
                     <Grid Margin="0,0,0,0" Width="210">
                         <TextBlock x:Name="tbl1PasswordHint" FontSize="16" Width="210" VerticalAlignment="Center" Text="Пароль" Foreground="DarkGray"/>
-                        <PasswordBox KeyUp="PasswordDown1" Name="PasswordPB" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" Visibility="Visible" GotFocus="PWBCleaning1"/>
-                        <TextBox KeyUp="TextBoxDown1" Name="PasswordTB" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" GotFocus="PWBCleaning1" Visibility="Collapsed"/>
+                        <PasswordBox KeyUp="PasswordDown1" TabIndex="4" Name="PasswordPB" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" Visibility="Visible" GotFocus="PWBCleaning1"/>
+                        <TextBox KeyUp="TextBoxDown1" Name="PasswordTB" TabIndex="4" FontSize="16" Width="210" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling1" GotFocus="PWBCleaning1" Visibility="Collapsed"/>
                     </Grid>
-                    <Button Template="{DynamicResource ButtonTemplate1}" Click="PWVisibilitySwitch1" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
+                    <Button Template="{DynamicResource ButtonTemplate1}" Click="PWVisibilitySwitch1" TabIndex="5" Background="{x:Null}" Style="{x:Null}" BorderBrush="{x:Null}" Margin="5,0,0,0" VerticalAlignment="Bottom">
                         <Image x:Name="PWVis1" Source="IMGs/show.png" Width="30" Height="30"/>
                     </Button>
                 </StackPanel>
 
 
-                <Button Height="30" Width="250" Margin="0,40,0,0" Click="CreateAccSend" Content="Создать аккаунт"/>
+                <Button Height="30" Width="250" Margin="0,40,0,0" Click="CreateAccSend" TabIndex="6" Content="Создать аккаунт"/>
             </StackPanel>
             <StackPanel x:Name="MessageStack" Visibility="Collapsed">
                 <Image x:Name="ErrIMG" Margin="0,20,0,0" Source="IMGs/serverErr.png" Height="150" Width="150"/>
