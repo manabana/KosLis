@@ -121,7 +121,16 @@ namespace KosLis
                         UserRecieveListView.ItemsSource = DisplayReceives();
                         return;
                     }
-                    if(req == "already")
+                    if(req == "alreadyRecieved")
+                    {
+                        Button1.Tag = "";
+                        Button2.Tag = "";
+                        Button2.Visibility = Visibility.Visible;
+                        MessageFrame($"Пользователь {FriendTB.Text} уже отправил вам заявку", MessageType.Error);
+                        return;
+
+                    }
+                    if (req == "alreadySended")
                     {
                         Button1.Tag = "";
                         Button2.Tag = "";
@@ -130,7 +139,17 @@ namespace KosLis
                         return;
 
                     }
-                    if(req == "senderIsReceiver")
+                    if (req == "alreadyFriends")
+                    {
+                        Button1.Tag = "";
+                        Button2.Tag = "";
+                        Button2.Visibility = Visibility.Visible;
+                        MessageFrame($"Пользователь {FriendTB.Text} уже ваш друг", MessageType.Error);
+                        return;
+
+                    }
+
+                    if (req == "senderIsReceiver")
                     {
                         Button1.Tag = "";
                         Button2.Tag = "";

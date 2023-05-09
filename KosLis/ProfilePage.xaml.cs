@@ -50,7 +50,7 @@ namespace KosLis
         {
             List<Posts> posts = new List<Posts>();
 
-            string resp = HomeSender.AskPosts();
+            string resp = HomeSender.AskPosts(ID, AskPostsType.UserPosts);
             string[] splitedA = resp.Split('|');
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
