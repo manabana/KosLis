@@ -24,8 +24,7 @@ namespace KosLis//MessageBox.Show((SystemInformation.PowerStatus.BatteryLifePerc
         public MainWindow()
         {
             InitializeComponent();
-            LoginPage loginPage = new LoginPage();
-            MainFrame.Content = loginPage;
+            MainFrame.Content = new LoginPage();
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)

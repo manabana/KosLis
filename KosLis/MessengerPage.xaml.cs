@@ -229,6 +229,7 @@ namespace KosLis
             Console.WriteLine(rep);
             var user = users.Single(p=>p.Id == userB);
             usernameOut.Content = user.Nickname;
+            ToProfileBT.Tag = user.Id;
             TopPanel.Visibility = Visibility.Visible;
             MessageSender.Visibility = Visibility.Visible;
             if(rep.IndexOf("success") > -1)
@@ -276,6 +277,13 @@ namespace KosLis
             {
                 SendMesBT.IsEnabled = true;
             }
+        }
+
+        private void OpenSome1Profile(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int id = int.Parse(button.Tag.ToString());
+
         }
     }
 }

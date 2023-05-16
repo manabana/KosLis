@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="165" Width="165">
+                <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="175" Width="175">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
                     </Ellipse.Fill>

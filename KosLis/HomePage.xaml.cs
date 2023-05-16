@@ -41,7 +41,13 @@ namespace KosLis
             nicknameLBL.Content = Nickname;
             ShowFeedBT(null, null);
         }
-
+        public static void OpenSome1Profile(int id)
+        {
+        }
+        private void OpenS1P(int id)
+        {
+            ContentFrame.Content = new Some1ProfilePage(id);
+        }
         private void AnimationIn(object sender, MouseEventArgs e)
         {
             //DoubleAnimation borderup = new DoubleAnimation();

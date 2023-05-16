@@ -32,12 +32,33 @@ namespace KosLis
             InitializeComponent();
             UserId = userId;
             DisplayFeed(UserId);
-            GetSome1Info(UserId);
+            var user = GetSome1Info(UserId);
+            NicknameLBL.Content = user.Nickname;
+            NameLBL.Content = user.Name;
+            SurnameLBL.Content = user.Surname;
 
         }
-        private void GetSome1Info(int userId)
+        class UserLimitedInfo
         {
+            public string Nickname { get; set; }
+            public string Name { get; set; }
+            public string Surname { get; set; }
+            public UserLimitedInfo()//string nickname, string name, string surname)
+            {
+                //Nickname = nickname;
+                //Name = name;
+                //Surname = surname;
+            }
+        }
+        private UserLimitedInfo GetSome1Info(int userId)
+        {
+            var user = new UserLimitedInfo();
+            string[] userstrs = HomeSender.GetSome1Info(userId).Split();
+            user.Nickname = userstrs[0];
+            user.Name = userstrs[1];
+            user.Surname = userstrs[2];
 
+            return null;
         }
         private void DisplayFeed(int userId)
         {

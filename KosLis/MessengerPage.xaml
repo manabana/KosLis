@@ -49,7 +49,7 @@
 
             </StackPanel>
         </Grid>
-        <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+        <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Center" Height="60" Width="200">
@@ -76,7 +76,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Rectangle Fill="#151515" RadiusX="15" RadiusY="15" Grid.RowSpan="3"/>
-            <ListView ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Grid.Row="1" x:Name="MsgLV">
+            <ListView ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Grid.Row="1" x:Name="MsgLV">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -100,6 +100,7 @@
                         <DropShadowEffect Direction="270" ShadowDepth="2" Opacity="0.7"/>
                     </Rectangle.Effect>
                 </Rectangle>
+                <Button x:Name="ToProfileBT" Click="OpenSome1Profile"/>
                 <Ellipse StrokeThickness="0" Width="32" Height="32">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="IMGs/StockUsr.png"/>
