@@ -43,6 +43,9 @@ namespace KosLis
         }
         public static void OpenSome1Profile(int id)
         {
+            var MW = Application.Current.MainWindow as MainWindow;
+            MW.ShowSome1Prof(id);
+
         }
         private void OpenS1P(int id)
         {

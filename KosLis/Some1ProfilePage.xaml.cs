@@ -53,12 +53,13 @@ namespace KosLis
         private UserLimitedInfo GetSome1Info(int userId)
         {
             var user = new UserLimitedInfo();
-            string[] userstrs = HomeSender.GetSome1Info(userId).Split();
+            string f = HomeSender.GetSome1Info(userId);
+            string[] userstrs = HomeSender.GetSome1Info(userId).Split(';');
             user.Nickname = userstrs[0];
             user.Name = userstrs[1];
             user.Surname = userstrs[2];
 
-            return null;
+            return user;
         }
         private void DisplayFeed(int userId)
         {
@@ -131,5 +132,11 @@ namespace KosLis
             }
         }
 
+        private void NavigateHome(object sender, RoutedEventArgs e)
+        {
+            var MW = Application.Current.MainWindow as MainWindow;
+            MW.NavigateBack();
+
+        }
     }
 }

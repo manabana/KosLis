@@ -72,5 +72,13 @@ namespace KosLis//MessageBox.Show((SystemInformation.PowerStatus.BatteryLifePerc
             LoginPage loginPage = new LoginPage();
             MainFrame.Content = loginPage;
         }
+        public void ShowSome1Prof(int id)
+        {
+            MainFrame.Content = new Some1ProfilePage(id);
+        }
+        public void NavigateBack()
+        {
+            MainFrame.NavigationService.GoBack();
+        }
     }
 }

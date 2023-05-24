@@ -100,12 +100,12 @@
                         <DropShadowEffect Direction="270" ShadowDepth="2" Opacity="0.7"/>
                     </Rectangle.Effect>
                 </Rectangle>
-                <Button x:Name="ToProfileBT" Click="OpenSome1Profile"/>
                 <Ellipse StrokeThickness="0" Width="32" Height="32">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="IMGs/StockUsr.png"/>
                     </Ellipse.Fill>
                 </Ellipse>
+                <Button x:Name="ToProfileBT" Click="OpenSome1Profile"/>
                 <Label Grid.Column="1" FontSize="16" x:Name="usernameOut" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Height="35" Visibility="Visible" Grid.Row="2" x:Name="MessageSender">

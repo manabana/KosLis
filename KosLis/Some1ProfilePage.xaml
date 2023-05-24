@@ -14,13 +14,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid>
-            <Rectangle Fill="#252525"/>
+            <Rectangle Fill="#252525">
+                <Rectangle.Effect>
+                    <DropShadowEffect Direction="270" ShadowDepth="2" Opacity="0.7"/>
+                </Rectangle.Effect>
+
+            </Rectangle>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="175" Width="175">
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButton}" Click="NavigateHome" Content="🡸" FontSize="18" Foreground="White"/>
+                <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="160" Width="160">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
