@@ -105,7 +105,7 @@
                         <ImageBrush ImageSource="IMGs/StockUsr.png"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Button x:Name="ToProfileBT" Click="OpenSome1Profile"/>
+                <Button Background="{x:Null}" x:Name="ToProfileBT" Click="OpenSome1Profile" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
                 <Label Grid.Column="1" FontSize="16" x:Name="usernameOut" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Height="35" Visibility="Visible" Grid.Row="2" x:Name="MessageSender">

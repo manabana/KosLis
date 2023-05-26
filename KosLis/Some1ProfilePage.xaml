@@ -28,17 +28,17 @@
                 <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButton}" Click="NavigateHome" Content="🡸" FontSize="18" Foreground="White"/>
                 <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="160" Width="160">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="IMGs/StockUsr.png" x:Name="UserPhoto" Stretch="UniformToFill"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.Column="1">
                     <Label x:Name="NicknameLBL" Margin="0,10,0,0" FontSize="16"/>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                        <Label FontSize="16" Content="Имя:" />
+                        <Label FontSize="16" x:Name="NML" Content="Имя:" />
                         <Label FontSize="16" x:Name="NameLBL" Margin="10,0,0,0"/>
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                        <Label FontSize="16" Content="Фамилия:" />
+                        <Label FontSize="16" x:Name="NL" Content="Фамилия:" />
                         <Label FontSize="16" x:Name="SurnameLBL" Margin="10,0,0,0"/>
                     </StackPanel>
 

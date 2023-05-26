@@ -611,7 +611,7 @@ namespace QuerySender
             }
             catch (System.Net.Sockets.SocketException)
             {
-                return "Exception;ServerNotResponding";
+                return "ServerNotResponding";
             }
 
         }

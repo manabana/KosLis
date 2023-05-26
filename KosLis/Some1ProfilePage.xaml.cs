@@ -53,11 +53,31 @@ namespace KosLis
         private UserLimitedInfo GetSome1Info(int userId)
         {
             var user = new UserLimitedInfo();
-            string f = HomeSender.GetSome1Info(userId);
-            string[] userstrs = HomeSender.GetSome1Info(userId).Split(';');
-            user.Nickname = userstrs[0];
-            user.Name = userstrs[1];
-            user.Surname = userstrs[2];
+            string userstrs = HomeSender.GetSome1Info(userId);
+            if(userstrs == "SQLWillNotStarted")
+            {
+                user.Nickname = "Серверу не удалось подключиться к базе данных!";
+                var uriSource3 = new Uri(@"IMGs/cross.png", UriKind.Relative);
+                UserPhoto.ImageSource = new BitmapImage(uriSource3);
+                NL.Visibility = Visibility.Collapsed;
+                NML.Visibility = Visibility.Collapsed;
+            }
+            else if(userstrs == "ServerNotResponding") 
+            {
+                user.Nickname = "Не удалось подключиться к серверу";
+                var uriSource3 = new Uri(@"IMGs/cross.png", UriKind.Relative);
+                UserPhoto.ImageSource = new BitmapImage(uriSource3);
+                NL.Visibility = Visibility.Collapsed;
+                NML.Visibility = Visibility.Collapsed;
+
+            }
+            else
+            {
+                string[] strings = userstrs.Split(';');
+                user.Nickname = strings[0];
+                user.Name = strings[1];
+                user.Surname = strings[2];
+            }
 
             return user;
         }
