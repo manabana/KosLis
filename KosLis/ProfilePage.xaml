@@ -60,7 +60,7 @@
                                 <Button Click="UndoClicked" x:Name="UndoEmailEdit" Visibility="Collapsed" Style="{StaticResource MaterialDesignToolButton}" Content="❌" Foreground="DarkRed" FontSize="16"/>
                             </StackPanel>
                             <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
-                                <Label FontSize="16" Content="Nickname:"/>
+                                <Label FontSize="16" Content="Имя пользователя:"/>
                                 <Label FontSize="16" x:Name="NicknameTB"/>
                                 <TextBox Foreground="White" FontSize="16" x:Name="NicknameEditor" Visibility="Collapsed"/>
                                 <Button x:Name="NicknameEditBT" Click="EditNickname" Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
@@ -73,7 +73,7 @@
 
                             </StackPanel>
                             <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
-                                <Label FontSize="16" Content="Name:"/>
+                                <Label FontSize="16" Content="Имя:"/>
                                 <Label FontSize="16" x:Name="NameTB"/>
                                 <TextBox Foreground="White" FontSize="16" x:Name="NameEditor" Visibility="Collapsed"/>
                                 <Button x:Name="NameEditBT" Click="EditName"  Height="29" Width="29" Style="{StaticResource MaterialDesignToolButton}" Cursor="Hand">
@@ -87,7 +87,7 @@
 
                             </StackPanel>
                             <StackPanel Margin="20,15,0,0" Orientation="Horizontal">
-                                <Label FontSize="16" Content="Surname:"/>
+                                <Label FontSize="16" Content="Фамилия:"/>
                                 <Label FontSize="16" x:Name="SurnameTB"/>
                                 <TextBox Foreground="White" FontSize="16" x:Name="SurnameEditor" Visibility="Collapsed"/>
 
@@ -116,7 +116,11 @@
                                         <StackPanel>
                                             <StackPanel  Orientation="Vertical">
                                                 <Grid>
-                                                    <Rectangle Fill="#242424" RadiusX="15" RadiusY="15"/>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="40"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Rectangle Grid.ColumnSpan="2" Fill="#242424" RadiusX="15" RadiusY="15"/>
                                                     <StackPanel Margin="0,4,0,4" Width="540" Orientation="Horizontal" FlowDirection="LeftToRight">
                                                         <Ellipse Width="50" Height="50">
                                                             <Ellipse.Fill>
@@ -128,7 +132,7 @@
                                                             <Label Content="{Binding postDate}" FontSize="12"/>
                                                         </StackPanel>
                                                     </StackPanel>
-
+                                                    <Button Grid.Column="1" x:Name="DeletePostBT"/>
                                                 </Grid>
                                                 <Label x:Name="PostTTL" Content="{Binding postTitle}" FontSize="20"/>
                                                 <Label x:Name="PostTXT" Content="{Binding postText}" FontSize="14"/>
