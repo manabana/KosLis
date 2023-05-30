@@ -94,7 +94,7 @@ namespace KosLis
 
         private void ToProfileBT(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = new ProfilePage(userId, Email, Nickname, Name, Surname);
+            ContentFrame.Content = new ProfilePage(userId, Email, Nickname, Name, Surname, Password);
         }
 
         private void NewPostBT(object sender, RoutedEventArgs e)
@@ -109,7 +109,7 @@ namespace KosLis
 
         private void OpenOptions(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = new OptionsPage();
+            ContentFrame.Content = new OptionsPage(userId);
         }
 
         private void MessengerOpen(object sender, RoutedEventArgs e)

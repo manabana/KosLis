@@ -30,7 +30,8 @@ namespace KosLis
         string Nickname;
         string Name;
         string Surname;
-        public ProfilePage(int id, string em,string nn,string nm,string sn)
+        string Password;
+        public ProfilePage(int id, string em,string nn,string nm,string sn, string pw)
         {
             InitializeComponent();
             ID = id;
@@ -38,6 +39,7 @@ namespace KosLis
             Nickname = nn;
             Name = nm;
             Surname = sn;
+            Password = pw;
 
             EMailTB.Content= Email;
             NicknameTB.Content= Nickname;
@@ -257,6 +259,7 @@ namespace KosLis
             animation.Duration = TimeSpan.FromSeconds(0.2);
             MessageGrid.Visibility = Visibility.Collapsed;
             TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            DisplayFeed();
 
         }
 
@@ -322,6 +325,95 @@ namespace KosLis
 
         private void ApplyEmail(object sender, RoutedEventArgs e)
         {
+            string resp = HomeSender.EditUser("email", ID, EmailEditor.Text, Password);
+            if (resp == "OK")
+            {
+                MessageFrame("Электронная почта изменена!", MessageType.Successful);
+                EMailTB.Content = EmailEditor.Text;
+            }
+            else if (resp == "ServerNotResponding")
+            {
+                MessageFrame("Не удается подключиться к серверу!", MessageType.Error);
+            }
+            else if (resp == "SqlWillNotStarted")
+            {
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+
+        }
+
+        private void DeletePost(object sender, RoutedEventArgs e)
+        {
+            var but = sender as Button;
+            string resp = HomeSender.DeletePost(int.Parse(but.Tag.ToString()), Password);
+            if(resp == "OK")
+            {
+                MessageFrame("Пост удален!", MessageType.Successful);
+            }
+            else if(resp == "ServerNotResponding")
+            {
+                MessageFrame("Не удается подключиться к серверу!", MessageType.Error);
+            }
+            else if(resp == "SqlWillNotStarted")
+            {
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+        }
+
+        private void NameConfirm(object sender, RoutedEventArgs e)
+        {
+            string resp = HomeSender.EditUser("name", ID, NameEditor.Text, Password);
+            if (resp == "OK")
+            {
+                MessageFrame("Имя изменено!", MessageType.Successful);
+                NameTB.Content = NameEditor.Text;
+            }
+            else if (resp == "ServerNotResponding")
+            {
+                MessageFrame("Не удается подключиться к серверу!", MessageType.Error);
+            }
+            else if (resp == "SqlWillNotStarted")
+            {
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+
+        }
+
+        private void SurnameConfirm(object sender, RoutedEventArgs e)
+        {
+            string resp = HomeSender.EditUser("surname", ID, SurnameEditor.Text, Password);
+            if (resp == "OK")
+            {
+                MessageFrame("Фамилия изменена!", MessageType.Successful);
+                SurnameTB.Content = SurnameEditor.Text;
+            }
+            else if (resp == "ServerNotResponding")
+            {
+                MessageFrame("Не удается подключиться к серверу!", MessageType.Error);
+            }
+            else if (resp == "SqlWillNotStarted")
+            {
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+
+        }
+
+        private void NicknameConfirm(object sender, RoutedEventArgs e)
+        {
+            string resp = HomeSender.EditUser("nickname", ID, NicknameEditor.Text, Password);
+            if (resp == "OK")
+            {
+                MessageFrame("Имя пользователя изменено!", MessageType.Successful);
+                NicknameTB.Content = NicknameEditor.Text;
+            }
+            else if (resp == "ServerNotResponding")
+            {
+                MessageFrame("Не удается подключиться к серверу!", MessageType.Error);
+            }
+            else if (resp == "SqlWillNotStarted")
+            {
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
 
         }
     }

@@ -248,13 +248,6 @@ namespace KosLis
                 }
             }
         }
-        private void Preview(int ui, string title, string contnt, byte[] cimg)
-        {
-            PostStack.Visibility= Visibility.Collapsed;
-            PostPreview.Visibility= Visibility.Visible;
-            PostTTL.Content = title;
-            PostTXT.Content = contnt;
-        }
         private void CloseMessage(object sender, RoutedEventArgs e)
         {
             MessageStack.Visibility = Visibility.Collapsed;
@@ -320,7 +313,12 @@ namespace KosLis
                 animation.From = 16;
                 animation.To = 0;
                 animation.Duration = TimeSpan.FromSeconds(0.2);
+                try
+                {
                 PreImg.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+
+                }
+                catch { }
                 DelGrid.BeginAnimation(Grid.OpacityProperty, animation1);
                 DelGrid.Visibility = Visibility.Collapsed;
 

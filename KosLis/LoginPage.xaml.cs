@@ -178,7 +178,7 @@ namespace KosLis
             string p = pbPassword.Password;
             Regex regex = new Regex(@"\w*@\w*.\w*");
             MatchCollection matches = regex.Matches(s);
-            if(p.Length >= 8)
+            if(p.Length >= 8 || p.Length <= 25)
             {
                 if (s == "Электронная почта")
                 {
@@ -275,7 +275,7 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     var uriSource7 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource7);
-                    ErrText.Text = "Минимальная длина пароля - 8 символов!";
+                    ErrText.Text = "Допустимая длина пароля - от 8 до 25 символов!";
                     break;
                 case 7:
                     LoginStack.Visibility = Visibility.Collapsed;

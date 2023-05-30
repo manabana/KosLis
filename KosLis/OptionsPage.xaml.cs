@@ -20,7 +20,8 @@ namespace KosLis
     /// </summary>
     public partial class OptionsPage : Page
     {
-        public OptionsPage()
+
+        public OptionsPage(int userId)
         {
             InitializeComponent();
         }
