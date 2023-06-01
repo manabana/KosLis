@@ -37,7 +37,7 @@ namespace KosLis
                 if (checker == "True")
                 {
                     byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
-                    string debyted = Encoding.UTF8.GetString(bytes, 0, 256);
+                    string debyted = Encoding.UTF8.GetString(bytes, 0, 7000000);
                     BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
                     posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
                 }

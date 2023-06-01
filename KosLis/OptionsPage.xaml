@@ -9,65 +9,92 @@
       Title="OptionsPage">
 
     <Grid Margin="15">
-        <StackPanel>
-            <Grid VerticalAlignment="Center" Height="50">
-                <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Margin="15,0,0,0" VerticalAlignment="Center" Content="Запомнить данные для входа"/>
-                    <CheckBox x:Name="LoginChecker" Grid.Column="1" HorizontalAlignment="Center" Checked="RememberData" Unchecked="ForgetData" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+        <Grid x:Name="TopGrid">
+            <StackPanel>
+                <Grid VerticalAlignment="Center" Height="50">
+                    <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="15,0,0,0" VerticalAlignment="Center" Content="Запомнить данные для входа"/>
+                        <CheckBox x:Name="LoginChecker" Grid.Column="1" HorizontalAlignment="Center" Checked="RememberData" Unchecked="ForgetData" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Margin="0,5,0,0" VerticalAlignment="Center" Height="50">
-                <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Margin="15,0,0,0" Content="Увеличенная частота обновления диалогов" VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                <Grid Margin="0,5,0,0" VerticalAlignment="Center" Height="50">
+                    <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="15,0,0,0" Content="Увеличенная частота обновления диалогов" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid Margin="0,5,0,0" VerticalAlignment="Center" Height="50">
-                <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="400"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Margin="15,0,0,0" Content="Сменить пароль" VerticalAlignment="Center"/>
-                    <Button Grid.Column="2" Click="ShowPasswEditor" x:Name="pencil" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolButton}">
-                        <Button.Content>
-                            <Image Source="IMGs/pencil.png"/>
-                        </Button.Content>
-                    </Button>
-                    <Button Grid.Column="2" Visibility="Collapsed" Click="SendChanges" Content="✔" Style="{StaticResource MaterialDesignToolButton}" Foreground="DarkGreen" HorizontalAlignment="Center" x:Name="ConfirmChanges"/>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Grid Margin="0,0,0,0" Width="175" Visibility="Collapsed" x:Name="pastpwgrid">
-                            <TextBlock x:Name="tblPasswordHint" FontSize="14" Width="175" VerticalAlignment="Center" Text="Старый пароль" Foreground="DarkGray"/>
-                            <PasswordBox Background="{x:Null}" TabIndex="1" KeyUp="PasswordDown" Name="pbPassword" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" LostFocus="PWBFilling" Visibility="Visible" GotFocus="PWBCleaning"/>
-                            <TextBox KeyUp="TextBoxDown" TabIndex="1" Name="tbPassword" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" GotFocus="PWBCleaning" Visibility="Collapsed"/>
-                        </Grid>
-                        <Button Width="35" Margin="5" Height="35" x:Name="eye" Visibility="Collapsed" Click="PWVisibilitySwitch" Background="{x:Null}" Style="{StaticResource MaterialDesignToolButton}" BorderBrush="{x:Null}">
-                            <Image x:Name="PWVis" Source="IMGs/show.png" Width="25" Height="25"/>
+                <Grid Margin="0,5,0,0" VerticalAlignment="Center" Height="50">
+                    <Rectangle RadiusX="15" RadiusY="15" Fill="#252525" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Margin="15,0,0,0" Content="Сменить пароль" VerticalAlignment="Center"/>
+                        <Button Grid.Column="2" Click="ShowPasswEditor" x:Name="pencil" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignToolButton}">
+                            <Button.Content>
+                                <Image Source="IMGs/pencil.png"/>
+                            </Button.Content>
                         </Button>
+                        <Button Grid.Column="2" Visibility="Collapsed" Click="SendChanges" Content="✔" Style="{StaticResource MaterialDesignToolButton}" Foreground="DarkGreen" HorizontalAlignment="Center" x:Name="ConfirmChanges"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Grid Margin="0,0,0,0" Width="175" Visibility="Collapsed" x:Name="pastpwgrid">
+                                <TextBlock x:Name="tblPasswordHint" FontSize="14" Width="175" VerticalAlignment="Center" Text="Старый пароль" Foreground="DarkGray"/>
+                                <PasswordBox Background="{x:Null}" TabIndex="1" KeyUp="PasswordDown" Name="pbPassword" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" LostFocus="PWBFilling" Visibility="Visible" GotFocus="PWBCleaning"/>
+                                <TextBox KeyUp="TextBoxDown" TabIndex="1" Name="tbPassword" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling" GotFocus="PWBCleaning" Visibility="Collapsed"/>
+                            </Grid>
+                            <Button Width="35" Margin="5" Height="35" x:Name="eye" Visibility="Collapsed" Click="PWVisibilitySwitch" Background="{x:Null}" Style="{StaticResource MaterialDesignToolButton}" BorderBrush="{x:Null}">
+                                <Image x:Name="PWVis" Source="IMGs/show.png" Width="25" Height="25"/>
+                            </Button>
 
-                        <Grid Margin="0,0,0,0" Width="175" Visibility="Collapsed" x:Name="nextpwgrid">
-                            <TextBlock x:Name="tblPasswordHint2" FontSize="14" Width="175" VerticalAlignment="Center" Text="Новый пароль" Foreground="DarkGray"/>
-                            <PasswordBox Background="{x:Null}" TabIndex="1" KeyUp="PasswordDown2" Name="pbPassword2" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" LostFocus="PWBFilling2" Visibility="Visible" GotFocus="PWBCleaning2"/>
-                            <TextBox KeyUp="TextBoxDown2" TabIndex="1" Name="tbPassword2" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling2" GotFocus="PWBCleaning2" Visibility="Collapsed"/>
-                        </Grid>
+                            <Grid Margin="0,0,0,0" Width="175" Visibility="Collapsed" x:Name="nextpwgrid">
+                                <TextBlock x:Name="tblPasswordHint2" FontSize="14" Width="175" VerticalAlignment="Center" Text="Новый пароль" Foreground="DarkGray"/>
+                                <PasswordBox Background="{x:Null}" TabIndex="1" KeyUp="PasswordDown2" Name="pbPassword2" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" LostFocus="PWBFilling2" Visibility="Visible" GotFocus="PWBCleaning2"/>
+                                <TextBox KeyUp="TextBoxDown2" TabIndex="1" Name="tbPassword2" FontSize="14" Width="175" VerticalAlignment="Center" Foreground="#F3F3F3" Background="{x:Null}" LostFocus="PWBFilling2" GotFocus="PWBCleaning2" Visibility="Collapsed"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+
+
+            </StackPanel>
+
+        </Grid>
+        <Grid Visibility="Collapsed" Opacity="0" x:Name="MessageGrid" Grid.RowSpan="2">
+            <Grid MinHeight="100" MaxHeight="200" Width="400" Margin="0,80,0,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.RowSpan="2" Fill="#242424"  RadiusX="15" RadiusY="15"/>
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Click="ButClicked" Height="25" Width="80" x:Name="Button1" Background="#FF290A5F" BorderBrush="#FF290A5F"/>
+                        <Button Click="ButClicked" Width="80" Height="25" x:Name="Button2" Margin="50,0,0,0" BorderBrush="#FF290A5F" Background="#FF290A5F"/>
                     </StackPanel>
                 </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="MessageIcon" MinWidth="30" MaxHeight="60" MaxWidth="60" MinHeight="30" Source="IMGs/UnkErr.png"/>
+                    <TextBlock x:Name="MessageText" Margin="0,0,10,0" Grid.Column="1" Text="" FontSize="16" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center"/>
+                </Grid>
             </Grid>
-
-
-
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>

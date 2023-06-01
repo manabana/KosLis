@@ -11,6 +11,8 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -178,20 +180,94 @@ namespace KosLis
             string req = HomeSender.ChangePassword(UserId, Old, New);
             if(req == "OK")
             {
-
+                MessageFrame("Пароль изменен!", MessageType.Successful);
             }
             else if(req == "ICPassword")
             {
-
+                MessageFrame("Неправильный старый пароль!", MessageType.Error);
             }
             else if(req == "ServerNotResponding")
             {
-
+                MessageFrame("Не удалось подключиться к серверу", MessageType.Error);
             }
             else if (req == "SqlWillNotStarted")
             {
-
+                MessageFrame("Серверу не удалось подключиться к базе данных", MessageType.Error);
             }
         }
+        private void ButClicked(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            TopGrid.IsEnabled = true;
+            BlurEffect blurEffect = new BlurEffect();
+            TopGrid.Effect = blurEffect;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 16;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+            MessageGrid.Visibility = Visibility.Collapsed;
+            TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            TopGrid.Effect = null;
+
+        }
+        private void MessageFrame(string message, MessageType type)
+        {
+            TopGrid.IsEnabled = false;
+            BlurEffect blurEffect = new BlurEffect();
+            TopGrid.Effect = blurEffect;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 0;
+            animation.To = 16;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+
+            DoubleAnimation animation2 = new DoubleAnimation();
+            animation2.From = 0;
+            animation2.To = 1;
+            animation2.Duration = TimeSpan.FromSeconds(0.2);
+
+            switch (type)
+            {
+                case MessageType.Error:
+                    Button2.Visibility = Visibility.Collapsed;
+                    Button1.Content = "Ок";
+                    var uriSource3 = new Uri(@"IMGs/cross.png", UriKind.Relative);
+                    MessageIcon.Source = new BitmapImage(uriSource3);
+
+                    MessageText.Text = message;
+                    break;
+                case MessageType.Warning:
+                    Button2.Visibility = Visibility.Collapsed;
+                    Button1.Content = "Ок";
+                    var uriSource2 = new Uri(@"IMGs/attention.png", UriKind.Relative);
+                    MessageIcon.Source = new BitmapImage(uriSource2);
+
+                    MessageText.Text = message;
+                    break;
+                case MessageType.Confirmation:
+                    Button2.Visibility = Visibility.Visible;
+                    Button1.Content = "Да";
+                    Button2.Content = "Нет";
+                    var uriSource1 = new Uri(@"IMGs/question.png", UriKind.Relative);
+                    MessageIcon.Source = new BitmapImage(uriSource1);
+                    Button1.Tag = "confirmYes";
+                    Button2.Tag = "confirmNo";
+                    MessageText.Text = message;
+                    break;
+                case MessageType.Successful:
+                    Button2.Visibility = Visibility.Collapsed;
+                    Button1.Content = "Ок";
+                    var uriSource4 = new Uri(@"IMGs/check.png", UriKind.Relative);
+                    MessageIcon.Source = new BitmapImage(uriSource4);
+
+                    MessageText.Text = message;
+
+                    break;
+
+            }
+            MessageGrid.Visibility = Visibility.Visible;
+            TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            MessageGrid.BeginAnimation(OpacityProperty, animation2);
+        }
+
     }
 }

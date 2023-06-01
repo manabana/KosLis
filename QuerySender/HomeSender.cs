@@ -178,7 +178,7 @@ namespace QuerySender
         }
         public static byte[] AskPostImage(int postId)
         {
-            byte[] bytes = new byte[7340032]; //7 MB
+            byte[] bytes = new byte[146800640]; //7 MB
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
@@ -400,7 +400,7 @@ namespace QuerySender
         {
             //Thread.Sleep(250);
             // Буфер для входящих данных
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[256];
 
             // Соединяемся с удаленным устройством
 

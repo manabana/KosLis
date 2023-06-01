@@ -259,12 +259,14 @@ namespace KosLis
             animation.Duration = TimeSpan.FromSeconds(0.2);
             MessageGrid.Visibility = Visibility.Collapsed;
             TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            TopGrid.Effect = null;
             DisplayFeed();
 
         }
 
         private void MessageFrame(string message, MessageType type)
         {
+            TopGrid.IsEnabled = false;
             BlurEffect blurEffect = new BlurEffect();
             TopGrid.Effect = blurEffect;
             DoubleAnimation animation = new DoubleAnimation();

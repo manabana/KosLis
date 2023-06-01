@@ -30,7 +30,7 @@ namespace KosLis
     {
         private int UserID;
         private string Password;
-        byte[] ImageBytes = null;
+        byte[] ImageBytes = new byte[146800640];
 
         bool ImageSelected= false;
         public PostPage(int id, string pw)
