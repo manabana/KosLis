@@ -139,8 +139,8 @@
                                                             </Button.Content>
                                                         </Button>
                                                     </Grid>
-                                                    <Label x:Name="PostTTL" Content="{Binding postTitle}" FontSize="20"/>
-                                                    <Label x:Name="PostTXT" Content="{Binding postText}" FontSize="14"/>
+                                                    <TextBlock x:Name="PostTTL" TextWrapping="Wrap" Foreground="White" Text="{Binding postTitle}" FontSize="20"/>
+                                                    <TextBlock x:Name="PostTXT" TextWrapping="Wrap" Text="{Binding postText}" Foreground="White" FontSize="14"/>
 
                                                     <Grid MaxWidth="544" MaxHeight="306" Visibility="Visible" Background="Black" >
                                                         <Image Source="{Binding postImage}" MaxWidth="544" MaxHeight="306"/>

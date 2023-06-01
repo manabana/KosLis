@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Reflection.Emit;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace QuerySender
 {
@@ -397,7 +398,7 @@ namespace QuerySender
         }
         public static string SendImage(byte[] image, int postId)
         {
-            Thread.Sleep(250);
+            //Thread.Sleep(250);
             // Буфер для входящих данных
             byte[] bytes = new byte[1024];
 
@@ -416,7 +417,7 @@ namespace QuerySender
                 sender.Connect(ipEndPoint);
                 int bytesSent = sender.Send(image);
                 // Получаем ответ от сервера
-                Thread.Sleep(100);
+                //Thread.Sleep(100);
                 sender.Shutdown(SocketShutdown.Both);
                 sender.Close();
                 string checker = CheckPostImage(postId);
@@ -662,6 +663,29 @@ namespace QuerySender
                 return "ServerNotResponding";
             }
 
+        }
+        public static string ChangePassword(int userid, string pastPassword, string nextPassvord)
+        {
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"changePassword;{userid};{pastPassword};{nextPassvord}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "ServerNotResponding";
+            }
         }
     }
 }

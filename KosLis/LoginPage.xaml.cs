@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace KosLis
 {
@@ -29,6 +30,20 @@ namespace KosLis
         public LoginPage()
         {
             InitializeComponent();
+            if (File.Exists("login.bin"))
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open("login.bin", FileMode.Open)))
+                {
+                    // Чтение логина и пароля из файла
+                    string login = reader.ReadString();
+                    string password = reader.ReadString();
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    LoadingStack.Visibility = Visibility.Visible;
+                    LoginSendAsync(login, password);
+                }
+
+            }
+
         }
 
         private void TBCleaning(object sender, RoutedEventArgs e)
@@ -172,10 +187,8 @@ namespace KosLis
             }
 
         }
-        private async Task LoginSendAsync()
+        private async Task LoginSendAsync(string s, string p)
         {
-            string s = EmailTBL.Text;
-            string p = pbPassword.Password;
             Regex regex = new Regex(@"\w*@\w*.\w*");
             MatchCollection matches = regex.Matches(s);
             if(p.Length >= 8 || p.Length <= 25)
@@ -188,8 +201,8 @@ namespace KosLis
                 {
                     if (matches.Count > 0)
                     {
-                        string em = EmailTBL.Text;
-                        string pw = pbPassword.Password;
+                        string em = s;
+                        string pw = p;
                         await Task.Run(() => LoginSend(em, pw));
                     }
                     else
@@ -209,7 +222,7 @@ namespace KosLis
         {
             LoginStack.Visibility = Visibility.Collapsed;
             LoadingStack.Visibility = Visibility.Visible;
-            LoginSendAsync();
+            LoginSendAsync(EmailTBL.Text, pbPassword.Password);
         }
 
         private void ErrOk(object sender, RoutedEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Deployment.Internal;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,7 +110,7 @@ namespace KosLis
 
         private void OpenOptions(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = new OptionsPage(userId);
+            ContentFrame.Content = new OptionsPage(userId, Email, Password);
         }
 
         private void MessengerOpen(object sender, RoutedEventArgs e)
@@ -124,6 +125,10 @@ namespace KosLis
 
         private void Logout(object sender, RoutedEventArgs e)
         {
+            if (File.Exists("login.bin"))
+            {
+                File.Delete("login.bin");
+            }
             var MW = Application.Current.MainWindow as MainWindow;
             MW.LogOut();
         }
