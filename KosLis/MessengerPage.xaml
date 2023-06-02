@@ -13,61 +13,74 @@
             <ColumnDefinition Width="220"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Rectangle Fill="#212121" RadiusX="15" RadiusY="15"/>
-        <Grid Grid.Column="0" x:Name="MessageGrid">
-            <StackPanel Margin="15" Orientation="Vertical">
-                <Image Visibility="Collapsed" Height="75" x:Name="MessageImage" Width="75"/>
-                <TextBlock TextWrapping="Wrap" Margin="0,10,0,10" TextAlignment="Center" Visibility="Collapsed" x:Name="MessageTextBlock" Foreground="LightGray" FontSize="18"/>
-                <Button Click="MessageBoxButtonClicked" IsEnabled="False" x:Name="MessageBoxButton" Foreground="White" Width="50" Background="#313131" FontSize="35" Style="{StaticResource MaterialDesignIconButton}">
-                    <Button.Content>
-                        <Grid>
-                            <Image Visibility="Collapsed" x:Name="ReloadLBL" Source="IMGs/Refresh.png" Width="20" Height="20"/>
-                            <Image Visibility="Visible" x:Name="loadLBL" Source="IMGs/Loading.png" Height="20" Width="20" >
-                                <Image.RenderTransform>
-                                    <RotateTransform 
-                                         x:Name="rotate"
-                                         CenterX="10"
-                                         CenterY="10"
-                                    />
-                                </Image.RenderTransform>
-                                <Image.Triggers>
-                                    <EventTrigger RoutedEvent="Loaded">
-                                        <BeginStoryboard>
-                                            <Storyboard RepeatBehavior="Forever">
-                                                <DoubleAnimation Storyboard.TargetName="rotate"
-                                     Storyboard.TargetProperty="Angle"
-                                     By="360" Duration="0:0:1"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Image.Triggers>
-                            </Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                        </Grid>
-                    </Button.Content>
-                </Button>
+            <StackPanel HorizontalAlignment="Center" Grid.Row="0" Orientation="Horizontal">
+                <Label FontSize="14" Content="Только друзья"/>
+                <CheckBox Height="20" Width="25" x:Name="LoginChecker" HorizontalAlignment="Center" Checked="OnlyFriends" Unchecked="AllUsers" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
 
             </StackPanel>
-        </Grid>
-        <ListView HorizontalAlignment="Center" Grid.Row="0" x:Name="UserListView" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Center" Height="60" Width="200">
-                        <Rectangle Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="IMGs/StockUsr.png"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
-                        </StackPanel>
-                        <Button Click="MesDialogOpen" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0"  Height="60" Width="200"/>
+            <Rectangle Grid.Row="1" Fill="#212121" RadiusX="15" RadiusY="15"/>
+            <ListView HorizontalAlignment="Center" Grid.Row="1" x:Name="UserListView" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Center" Height="60" Width="200">
+                            <Rectangle Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
+                            </StackPanel>
+                            <Button Click="MesDialogOpen" Background="{x:Null}" Tag="{Binding Id}" BorderThickness="0"  Height="60" Width="200"/>
 
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid Grid.Row="1" Grid.Column="0" x:Name="MessageGrid">
+                <StackPanel Margin="15" Orientation="Vertical">
+                    <Image Visibility="Collapsed" Height="75" x:Name="MessageImage" Width="75"/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,10" TextAlignment="Center" Visibility="Collapsed" x:Name="MessageTextBlock" Foreground="LightGray" FontSize="18"/>
+                    <Button Click="MessageBoxButtonClicked" IsEnabled="False" x:Name="MessageBoxButton" Foreground="White" Width="50" Background="#313131" FontSize="35" Style="{StaticResource MaterialDesignIconButton}">
+                        <Button.Content>
+                            <Grid>
+                                <Image Visibility="Collapsed" x:Name="ReloadLBL" Source="IMGs/Refresh.png" Width="20" Height="20"/>
+                                <Image Visibility="Visible" x:Name="loadLBL" Source="IMGs/Loading.png" Height="20" Width="20" >
+                                    <Image.RenderTransform>
+                                        <RotateTransform 
+                                             x:Name="rotate"
+                                             CenterX="10"
+                                             CenterY="10"
+                                        />
+                                    </Image.RenderTransform>
+                                    <Image.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever">
+                                                    <DoubleAnimation Storyboard.TargetName="rotate"
+                                         Storyboard.TargetProperty="Angle"
+                                         By="360" Duration="0:0:1"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Image.Triggers>
+                                </Image>
+
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
 
         <Grid Margin="5,0,0,0" Grid.Column="1" Visibility="Collapsed" x:Name="MessengerGrid">
             <Grid.RowDefinitions>

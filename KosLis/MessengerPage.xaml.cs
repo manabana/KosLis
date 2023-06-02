@@ -65,6 +65,27 @@ namespace KosLis
 
             });
         }
+        private async Task DisplayFriendsOnly()
+        {
+            await Task.Run(() =>
+            {
+                string CS = CheckServer();
+                if (CS == "OK")
+                {
+
+                    DisplayFriends(GlobalId);
+                    Refresh();
+                }
+                else
+                {
+                    if (CS == "Exception;ServerNotResponding")
+                    {
+                        Dispatcher.Invoke(() => DisplayMessageBox("Не удалось подключиться к серверу!", MessageType.Error));
+                    }
+                }
+
+            });
+        }
         private void DisplayMessageBox(string message, MessageType messageType)
         {
             MessageTextBlock.Text = message;
@@ -128,6 +149,7 @@ namespace KosLis
         {
             string resp = HomeSender.AskUsers(GlobalId, AskUsersType.AskEveryoneExcept);
             string[] splitedA = resp.Split('|');
+            users.Clear();
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
@@ -137,9 +159,29 @@ namespace KosLis
             Dispatcher.Invoke(() =>
             {
                 MessageGrid.Visibility = Visibility.Collapsed;
+                UserListView.ItemsSource = null;
                 UserListView.ItemsSource = users;
             });
         }
+        private void DisplayFriends(int userid)
+        {
+            string resp = HomeSender.AskUsers(userid, AskUsersType.AskFriends);
+            string[] splitedA = resp.Split('|');
+            users.Clear();
+            for (int i = 0; i < splitedA.Count() - 1; i++)
+            {
+                string[] splitedB = splitedA[i].Split(';');
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+
+            }
+            Dispatcher.Invoke(() =>
+            {
+                MessageGrid.Visibility = Visibility.Collapsed;
+                UserListView.ItemsSource = null;
+                UserListView.ItemsSource = users;
+            });
+        }
+
         public class Users
         {
             public int Id { get; set; }
@@ -286,6 +328,16 @@ namespace KosLis
             var MW = Application.Current.MainWindow as MainWindow;
             MW.ShowSome1Prof(id);
 
+        }
+
+        private void OnlyFriends(object sender, RoutedEventArgs e)
+        {
+            DisplayFriendsOnly();
+        }
+
+        private void AllUsers(object sender, RoutedEventArgs e)
+        {
+            FirstActions();
         }
     }
 }
