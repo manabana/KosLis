@@ -30,8 +30,8 @@ namespace KosLis
     {
         private int UserID;
         private string Password;
-        byte[] ImageBytes = new byte[146800640];
-
+        int ImageSize = 0;
+        byte[] ImageBytesG;
         bool ImageSelected= false;
         public PostPage(int id, string pw)
         {
@@ -69,7 +69,10 @@ namespace KosLis
                 openFile.ShowDialog();
                 filenm = openFile.FileName;
                 image= System.Drawing.Image.FromFile(filenm);
-                ImageBytes = ImgToByteConverter(image);
+
+                byte[] ImageBytes = ImgToByteConverter(image);
+                ImageSize = ImageBytes.Length;
+                ImageBytesG = ImageBytes;
                 bitmap1 = DrawingToBitmap(image);
                 PreImg.Source = bitmap1;
                 ImageSelected = true;
@@ -126,7 +129,7 @@ namespace KosLis
             string b = PostTitleTB.Text;
             string c = ContentTextRTB.Text;
             string e = Password;
-            await Task.Run(() => PublishPost(a,b,c,ImageBytes,e));
+            await Task.Run(() => PublishPost(a,b,c,ImageBytesG,e,ImageSize));
         }
         private void MessageShow(string message, byte messagetype)
         {
@@ -207,9 +210,9 @@ namespace KosLis
 
 
         }
-        private void PublishPost(int ui, string tt, string ct, byte[] ci, string pw)
+        private void PublishPost(int ui, string tt, string ct, byte[] ci, string pw, int imgSize)
         {
-            string resp = HomeSender.PostSend(ui,tt,ct,ci,pw);
+            string resp = HomeSender.PostSend(ui,tt,ct,ci,pw,imgSize);
             Console.WriteLine(resp);
             if(resp == "PostAdded")
             {
@@ -220,7 +223,7 @@ namespace KosLis
             else if(resp.IndexOf("PAWaitingImage") >= 0)
             {
                 string[] strings = resp.Split(';');
-                string respond = HomeSender.SendImage(ImageBytes, int.Parse(strings[1]));
+                string respond = HomeSender.SendImage(ImageBytesG, int.Parse(strings[1]));
                 if(respond == "IMGAdded")
                 {
                     CheckMark();
@@ -329,7 +332,7 @@ namespace KosLis
         {
             FocusIMG(null, null);
             PreImg.Source = null;
-            ImageBytes = null;
+            ImageBytesG = null;
             DelGrid.Visibility= Visibility.Collapsed;
             ImgSelect.Visibility = Visibility.Visible;
             ImageSelected = false;

@@ -1,6 +1,7 @@
 ﻿using QuerySender;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -31,7 +32,8 @@ namespace KosLis
         string Name;
         string Surname;
         string Password;
-        public ProfilePage(int id, string em,string nn,string nm,string sn, string pw)
+        HomePage Home;
+        public ProfilePage(int id, string em,string nn,string nm,string sn, string pw, int pf, HomePage home)
         {
             InitializeComponent();
             ID = id;
@@ -40,7 +42,10 @@ namespace KosLis
             Name = nm;
             Surname = sn;
             Password = pw;
+            Home = home;
 
+            var uriSource3 = new Uri($@"IMGs/PPs/{pf}.jpg", UriKind.Relative);
+            PP.ImageSource = new BitmapImage(uriSource3);
             EMailTB.Content= Email;
             NicknameTB.Content= Nickname;
             NameTB.Content= Name;
@@ -60,14 +65,25 @@ namespace KosLis
                 string checker = HomeSender.CheckPostImage(int.Parse(splitedB[0]));
                 if (checker == "True")
                 {
-                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
+                    string req = HomeSender.AskPostImageSize(int.Parse(splitedB[0]));
+                    int size;
+                    if (false)
+                    {
+                        size = 0;
+                    }
+                    else
+                    {
+                        size = int.Parse(req);
+                    }
+
+                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]), size);
                     string debyted = Encoding.UTF8.GetString(bytes, 0, 256);
                     BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
                 else
                 {
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
             }
             posts = posts.OrderByDescending(p => p.postId).ToList();
@@ -209,7 +225,22 @@ namespace KosLis
 
         private void ToProfileBT(object sender, RoutedEventArgs e)
         {
+            TopGrid.IsEnabled = false;
+            BlurEffect blurEffect = new BlurEffect();
+            TopGrid.Effect = blurEffect;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 0;
+            animation.To = 16;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
 
+            DoubleAnimation animation2 = new DoubleAnimation();
+            animation2.From = 0;
+            animation2.To = 1;
+            animation2.Duration = TimeSpan.FromSeconds(0.2);
+            PPSelectorGrid.Visibility = Visibility.Visible;
+            TopGrid.IsEnabled = false;
+            TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            PPSelectorGrid.BeginAnimation(OpacityProperty, animation2);
         }
 
         private void UndoClicked(object sender, RoutedEventArgs e)
@@ -418,9 +449,74 @@ namespace KosLis
             }
 
         }
+
+        private void NavigateBack(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            TopGrid.IsEnabled = true;
+            BlurEffect blurEffect = new BlurEffect();
+            TopGrid.Effect = blurEffect;
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = 16;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.2);
+            PPSelectorGrid.Visibility = Visibility.Collapsed;
+            TopGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+            TopGrid.Effect = null;
+        }
+        private void ResetAllPhotos()
+        {
+            for(int i = 1; i <= 10; i++)
+            {
+                string tag1 = $"Check{i}"; // тег, который вы хотите найти
+                string tag = $"Image{i}";
+                System.Windows.Controls.Image image = (System.Windows.Controls.Image)ImageContainer.FindName(tag);
+                Label label = (Label)ImageContainer.FindName(tag1);
+                image.Effect = null;
+                label.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void PhotoSelected(object sender, RoutedEventArgs e)
+        {
+            ResetAllPhotos();
+            var button = sender as Button;
+            int pp = int.Parse(button.Tag.ToString());
+            string q = HomeSender.ChangeProfilePhoto(ID, pp, Password);
+            if (q == "OK")
+            {
+                string tag1 = $"Check{pp}"; // тег, который вы хотите найти
+                string tag = $"Image{pp}";
+                System.Windows.Controls.Image image = (System.Windows.Controls.Image)ImageContainer.FindName(tag);
+                Label label = (Label)ImageContainer.FindName(tag1);
+
+                BlurEffect blur = new BlurEffect {Radius = 5};
+                image.Effect = blur;
+                label.Visibility = Visibility.Visible;
+                var uriSource3 = new Uri($@"IMGs/PPs/{pp}.jpg", UriKind.Relative);
+                PP.ImageSource = new BitmapImage(uriSource3);
+                Home.RefreshPhoto(pp);
+
+            }
+            else if (q == "ServerNotResponding")
+            {
+                NavigateBack(null,null);
+                MessageFrame("Не удалось подключиться к серверу!", MessageType.Error);
+            }
+            else if (q == "SqlWillNotStarted")
+            {
+                NavigateBack(null, null);
+                MessageFrame("Серверу не удалось подключиться к базе данных!", MessageType.Error);
+            }
+            else if(q == "ICPassword")
+            {
+                NavigateBack(null, null);
+                MessageFrame("Система безопасности отклонила доступ!", MessageType.Error);
+            }
+            else if(q == "UserNotExist")
+            {
+                NavigateBack(null, null);
+                MessageFrame("Пользователь не существует!", MessageType.Error);
+            }
+        }
     }
-
-
-
-
 }

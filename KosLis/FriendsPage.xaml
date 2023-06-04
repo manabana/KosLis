@@ -49,7 +49,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
@@ -81,7 +81,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
@@ -114,7 +114,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>

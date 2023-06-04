@@ -33,7 +33,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                        <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
@@ -115,7 +115,7 @@
                 </Rectangle>
                 <Ellipse StrokeThickness="0" Width="32" Height="32">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                        <ImageBrush x:Name="TopPanelPhoto" ImageSource="IMGs/StockUsr.png"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <Button Background="{x:Null}" x:Name="ToProfileBT" Click="OpenSome1Profile" BorderBrush="{x:Null}" Foreground="{x:Null}"/>

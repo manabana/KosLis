@@ -208,7 +208,7 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2])));
 
             }
             return users;
@@ -223,7 +223,7 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2])));
 
             }
             return users;
@@ -239,7 +239,7 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2])));
 
             }
             return users;

@@ -29,7 +29,9 @@ namespace KosLis
         private string Name;
         private string Surname;
         private string Password;
-        public HomePage(int id,string email, string nickname, string name, string surname, string passw)
+        private int Photo;
+        public HomePage home { get; set; }
+        public HomePage(int id,string email, string nickname, string name, string surname, string passw, int photo)
         {
             InitializeComponent();
             userId= id;
@@ -38,11 +40,19 @@ namespace KosLis
             Name = name;
             Surname = surname; 
             Password = passw;
-            
+            Photo = photo;
+            var uriSource3 = new Uri($@"IMGs/PPs/{photo}.jpg", UriKind.Relative);
+            PP.ImageSource = new BitmapImage(uriSource3);
             nicknameLBL.Content = Nickname;
             ShowFeedBT(null, null);
         }
-        public static void OpenSome1Profile(int id)
+        public void RefreshPhoto(int newPhotoId)
+        {
+            var uriSource3 = new Uri($@"IMGs/PPs/{newPhotoId}.jpg", UriKind.Relative);
+            PP.ImageSource = new BitmapImage(uriSource3);
+
+        }
+        public void OpenSome1Profile(int id)
         {
             var MW = Application.Current.MainWindow as MainWindow;
             MW.ShowSome1Prof(id);
@@ -95,7 +105,7 @@ namespace KosLis
 
         private void ToProfileBT(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Content = new ProfilePage(userId, Email, Nickname, Name, Surname, Password);
+            ContentFrame.Content = new ProfilePage(userId, Email, Nickname, Name, Surname, Password, Photo, home);
         }
 
         private void NewPostBT(object sender, RoutedEventArgs e)

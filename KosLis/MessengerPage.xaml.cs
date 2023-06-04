@@ -153,7 +153,7 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2])));
 
             }
             Dispatcher.Invoke(() =>
@@ -171,7 +171,7 @@ namespace KosLis
             for (int i = 0; i < splitedA.Count() - 1; i++)
             {
                 string[] splitedB = splitedA[i].Split(';');
-                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1]));
+                users.Add(new Users(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2])));
 
             }
             Dispatcher.Invoke(() =>
@@ -186,11 +186,21 @@ namespace KosLis
         {
             public int Id { get; set; }
             public string Nickname { get; set; }
+            public string ProfilePhoto { get; set; }
+            public int PhotoId { get; set; }
 
-            public Users(int Id, string Nickname)
+            public Users(int Id, string Nickname, int PhotoId)
             {
                 this.Id = Id;
                 this.Nickname = Nickname;
+                ProfilePhoto = $@"IMGs/PPs/{PhotoId}.jpg";
+                this.PhotoId = PhotoId;
+                //BitmapImage bitmap = new BitmapImage();
+                //bitmap.BeginInit();
+                //bitmap.UriSource = new Uri($@"IMGs/PPs/{PhotoId}.jpg", UriKind.Relative);
+                //bitmap.EndInit();
+                //ProfilePhoto = bitmap;
+
             }
         }
         public class Messages
@@ -271,6 +281,8 @@ namespace KosLis
             Console.WriteLine(rep);
             var user = users.Single(p=>p.Id == userB);
             usernameOut.Content = user.Nickname;
+            var uriSource3 = new Uri($@"IMGs/PPs/{user.PhotoId}.jpg", UriKind.Relative);
+            TopPanelPhoto.ImageSource = new BitmapImage(uriSource3);
             ToProfileBT.Tag = user.Id;
             TopPanel.Visibility = Visibility.Visible;
             MessageSender.Visibility = Visibility.Visible;

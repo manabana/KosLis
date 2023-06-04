@@ -101,7 +101,7 @@ namespace KosLis
             else if (response.IndexOf("AccAdded") >= 0)
             {
                 string[] strings = response.Split(';');
-                Dispatcher.Invoke(() => HomePageOpen(int.Parse(strings[1]),em, nn, nm, sn, pw));
+                Dispatcher.Invoke(() => HomePageOpen(int.Parse(strings[1]),em, nn, nm, sn, pw, 0));
             }
             else if (response == "Exception;ServerNotResponding")
             {
@@ -163,7 +163,7 @@ namespace KosLis
             string[] splitedResponse = response.Split(';');
             if (splitedResponse[0] == "userdata")
             {
-                Dispatcher.Invoke(() => HomePageOpen(int.Parse(splitedResponse[1]), splitedResponse[2], splitedResponse[3], splitedResponse[4], splitedResponse[5], splitedResponse[6]));
+                Dispatcher.Invoke(() => HomePageOpen(int.Parse(splitedResponse[1]), splitedResponse[2], splitedResponse[3], splitedResponse[4], splitedResponse[5], splitedResponse[6], int.Parse(splitedResponse[7])));
             }
             else if (splitedResponse[0] == "Exception")
             {
@@ -320,9 +320,10 @@ namespace KosLis
             ErrIMG.Source = new BitmapImage(uriSource);
             ErrText.Text = "Неизвестная команда сервера: " + resp;
         }
-        private void HomePageOpen(int id, string em,string nn,string nm,string sn, string pw)
+        private void HomePageOpen(int id, string em,string nn,string nm,string sn, string pw, int pp)
         {
-            HomePage homePage = new HomePage(id,em,nn,nm,sn,pw);
+            HomePage homePage = new HomePage(id,em,nn,nm,sn,pw,pp);
+            homePage.home = homePage;
             var MW = Application.Current.MainWindow as MainWindow;
             MW.MainFrame.Content = homePage;         
         }

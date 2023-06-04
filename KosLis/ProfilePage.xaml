@@ -26,7 +26,7 @@
                                     <Grid Grid.Column="1" HorizontalAlignment="Center" x:Name="ProfilePhoto" VerticalAlignment="Center" MouseEnter="AnimationIn" MouseLeave="AnimationOut" Height="165" Width="165">
                                         <Ellipse HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Round" Stroke="White" StrokeThickness="1" Height="165" Width="165">
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
+                                                <ImageBrush x:Name="PP" ImageSource="IMGs/StockUsr.png" Stretch="UniformToFill"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
                                         <Ellipse x:Name="rndAnim" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="White" StrokeThickness="1" Height="165" Width="165">
@@ -125,7 +125,7 @@
                                                         <StackPanel Margin="0,4,0,4" Width="540" Orientation="Horizontal" FlowDirection="LeftToRight">
                                                             <Ellipse Width="50" Height="50">
                                                                 <Ellipse.Fill>
-                                                                    <ImageBrush ImageSource="IMGs/StockUsr.png"/>
+                                                                    <ImageBrush ImageSource="{Binding profilePhoto}"/>
                                                                 </Ellipse.Fill>
                                                             </Ellipse>
                                                             <StackPanel Orientation="Vertical" FlowDirection="LeftToRight">
@@ -163,6 +163,130 @@
                 </Grid>
             </ScrollViewer>
 
+        </Grid>
+        <Grid Height="440" Width="590" Visibility="Collapsed" Opacity="0" x:Name="PPSelectorGrid" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="#2f2f2f" RadiusX="15" RadiusY="15"/>
+            <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButton}" Click="NavigateBack" Content="🡸" FontSize="18" Foreground="White"/>
+
+            <Label Content="Выберите фото профиля" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <Grid x:Name="ImageContainer" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="#181818" RadiusX="15" RadiusY="15" Grid.RowSpan="2" Grid.ColumnSpan="5"/>
+                <Grid>
+                    <Image Width="100" x:Name="Image1" Tag="Image1" Height="100" Source="IMGs/PPs/1.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check1" Tag="Check1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="1" Click="PhotoSelected" x:Name="But1" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Image Width="100" x:Name="Image2" Tag="Image2" Height="100" Source="IMGs/PPs/2.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check2" Tag="Check2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="2" Click="PhotoSelected" x:Name="But2" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Image Width="100" x:Name="Image3" Tag="Image3" Height="100" Source="IMGs/PPs/3.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check3" Tag="Check3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="3" Click="PhotoSelected" x:Name="But3" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Image Width="100" x:Name="Image4" Tag="Image4" Height="100" Source="IMGs/PPs/4.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check4" Tag="Check4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="4" Click="PhotoSelected" x:Name="But4" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Image Width="100" x:Name="Image5" Tag="Image5" Height="100" Source="IMGs/PPs/5.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check5" Tag="Check5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="5" Click="PhotoSelected" x:Name="But5" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Image Width="100" x:Name="Image6" Tag="Image6" Height="100" Source="IMGs/PPs/6.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check6" Tag="Check6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="6" Click="PhotoSelected" x:Name="But6" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Image Width="100" x:Name="Image7" Tag="Image7" Height="100" Source="IMGs/PPs/7.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check7" Tag="Check7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="7" Click="PhotoSelected" x:Name="But7" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Image Width="100" x:Name="Image8" Tag="Image8" Height="100" Source="IMGs/PPs/8.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check8" Tag="Check8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="8" Click="PhotoSelected" x:Name="But8" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Column="3" Grid.Row="1">
+                    <Image Width="100" x:Name="Image9" Tag="Image9" Height="100" Source="IMGs/PPs/9.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check9" Tag="Check9" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="9" Click="PhotoSelected" x:Name="But9" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="4">
+                    <Image Width="100" x:Name="Image10" Tag="Image10" Height="100" Source="IMGs/PPs/10.jpg">
+                        <Image.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                        </Image.Clip>
+                    </Image>
+                    <Label Content="✔" Visibility="Collapsed" x:Name="Check10" Tag="Check10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="Green"/>
+                    <Button Width="100" Tag="10" Click="PhotoSelected" x:Name="But10" Height="100" Style="{StaticResource MaterialDesignToolButton}" Background="{x:Null}" BorderThickness="0"/>
+
+                </Grid>
+
+            </Grid>
         </Grid>
         <Grid Visibility="Collapsed" Opacity="0" x:Name="MessageGrid" Grid.RowSpan="2">
             <Grid MinHeight="100" MaxHeight="200" Width="400" Margin="0,80,0,0" VerticalAlignment="Top">

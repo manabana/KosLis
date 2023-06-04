@@ -177,6 +177,11 @@ namespace KosLis
         {
             string Old = pbPassword.Password;
             string New = pbPassword2.Password;
+            if(Old.Length > 25|| Old.Length < 8|| New.Length >25|| New.Length < 8)
+            {
+                MessageFrame("Пароль может иметь не более 25 и не менее 8 символов", MessageType.Error);
+                return;
+            }
             string req = HomeSender.ChangePassword(UserId, Old, New);
             if(req == "OK")
             {

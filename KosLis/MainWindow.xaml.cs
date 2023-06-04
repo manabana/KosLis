@@ -31,7 +31,6 @@ namespace KosLis//MessageBox.Show((SystemInformation.PowerStatus.BatteryLifePerc
         {
             this.DragMove();
         }
-
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);

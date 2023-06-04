@@ -1,6 +1,7 @@
 ﻿using QuerySender;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -27,15 +28,18 @@ namespace KosLis
         private string UserName { get; set; }
         private string Surname { get; set; }
         private string Nickname { get; set; }
+        private int PhotoId { get; set; }
         public Some1ProfilePage(int userId)
         {
             InitializeComponent();
             UserId = userId;
-            DisplayFeed(UserId);
             var user = GetSome1Info(UserId);
             NicknameLBL.Content = user.Nickname;
             NameLBL.Content = user.Name;
             SurnameLBL.Content = user.Surname;
+            var uriSource3 = new Uri($@"IMGs/PPs/{user.PhotoId}.jpg", UriKind.Relative);
+            UserPhoto.ImageSource = new BitmapImage(uriSource3);
+            DisplayFeed(UserId);
 
         }
         class UserLimitedInfo
@@ -43,6 +47,7 @@ namespace KosLis
             public string Nickname { get; set; }
             public string Name { get; set; }
             public string Surname { get; set; }
+            public int PhotoId { get; set; }
             public UserLimitedInfo()//string nickname, string name, string surname)
             {
                 //Nickname = nickname;
@@ -77,6 +82,8 @@ namespace KosLis
                 user.Nickname = strings[0];
                 user.Name = strings[1];
                 user.Surname = strings[2];
+                user.PhotoId = int.Parse(strings[3]);
+                
             }
 
             return user;
@@ -93,14 +100,25 @@ namespace KosLis
                 string checker = HomeSender.CheckPostImage(int.Parse(splitedB[0]));
                 if (checker == "True")
                 {
-                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
+                    string req = HomeSender.AskPostImageSize(int.Parse(splitedB[0]));
+                    int size;
+                    if (false)
+                    {
+                        size = 0;
+                    }
+                    else
+                    {
+                        size = int.Parse(req);
+                    }
+
+                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]), size);
                     string debyted = Encoding.UTF8.GetString(bytes, 0, 256);
                     BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
                 else
                 {
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
             }
             posts = posts.OrderByDescending(p => p.postId).ToList();

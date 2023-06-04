@@ -40,11 +40,15 @@
                                 <Grid>
                                     <Rectangle Fill="#242424" RadiusX="15" RadiusY="15"/>
                                     <StackPanel Margin="0,4,0,4" Width="592" Orientation="Horizontal" FlowDirection="LeftToRight">
-                                        <Ellipse Width="50" Height="50">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="IMGs/StockUsr.png"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                        <Grid Width="50" Height="50">
+                                            <Ellipse Width="50" Height="50">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding profilePhoto}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Button Background="{x:Null}" x:Name="ToProfileBT" Click="OpenSome1Profile" Tag="{Binding userId}" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+
+                                        </Grid>
                                         <StackPanel Orientation="Vertical" FlowDirection="LeftToRight">
                                             <Label Content="{Binding userName}" FontSize="16"/>
                                             <Label Content="{Binding postDate}" FontSize="12"/>

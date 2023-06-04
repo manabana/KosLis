@@ -55,9 +55,7 @@ namespace QuerySender
                 sender.Shutdown(SocketShutdown.Both);
                 sender.Close();
                 return Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
             }
-
         }
         public static string RateChange(RateType rateType, int postId)
         {
@@ -176,9 +174,9 @@ namespace QuerySender
             return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
         }
-        public static byte[] AskPostImage(int postId)
+        public static byte[] AskPostImage(int postId, int size)
         {
-            byte[] bytes = new byte[146800640]; //7 MB
+            byte[] bytes = new byte[size]; //7 MB
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
@@ -200,6 +198,33 @@ namespace QuerySender
             sender.Shutdown(SocketShutdown.Both);
             sender.Close();
             return bytes;
+
+
+        }
+        public static string AskPostImageSize(int postId)
+        {
+            byte[] bytes = new byte[32]; 
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+            string message;
+            message = $"postImageSize;{postId}";
+            byte[] msg = Encoding.UTF8.GetBytes(message);
+            int bytesSent = sender.Send(msg);
+            int bytesRec = sender.Receive(bytes);
+            sender.Shutdown(SocketShutdown.Both);
+            sender.Close();
+            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
 
         }
@@ -323,7 +348,7 @@ namespace QuerySender
         }
 
 
-        public static string PostSend(int usrId, string title, string contentTxt, byte[] contentIMG, string passw)
+        public static string PostSend(int usrId, string title, string contentTxt, byte[] contentIMG, string passw, int imageSize)
         {
             bool IMGAvlbl;
             if (contentIMG != null)
@@ -348,7 +373,7 @@ namespace QuerySender
             try
             {
                 sender.Connect(ipEndPoint);
-                string message = $"newpost;{usrId};{title};{contentTxt};{passw};{IMGAvlbl}";
+                string message = $"newpost;{usrId};{title};{contentTxt};{passw};{IMGAvlbl};{imageSize}";
 
                 
                 byte[] msg = Encoding.UTF8.GetBytes(message);
@@ -675,6 +700,29 @@ namespace QuerySender
             {
                 sender.Connect(ipEndPoint);
                 string message = $"changePassword;{userid};{pastPassword};{nextPassvord}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "ServerNotResponding";
+            }
+        }
+        public static string ChangeProfilePhoto(int userid,int photo, string password)
+        {
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"changeProfilePhoto;{userid};{photo};{password}";
                 byte[] msg = Encoding.UTF8.GetBytes(message);
                 int bytesSent = sender.Send(msg);
                 int bytesRec = sender.Receive(bytes);

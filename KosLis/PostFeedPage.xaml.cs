@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace KosLis
 {
@@ -24,6 +25,13 @@ namespace KosLis
     /// </summary>
     public partial class PostFeedPage : Page
     {
+        public PostFeedPage()
+        {
+            InitializeComponent();
+            DisplayAsync();
+            //DisplayFeed();
+
+        }
         private void DisplayFeed()
         {
             List<Posts> posts = new List<Posts>();
@@ -36,14 +44,25 @@ namespace KosLis
                 string checker = HomeSender.CheckPostImage(int.Parse(splitedB[0]));
                 if (checker == "True")
                 {
-                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]));
-                    string debyted = Encoding.UTF8.GetString(bytes, 0, 7000000);
+                    string req = HomeSender.AskPostImageSize(int.Parse(splitedB[0]));
+                    int size;
+                    if (false)
+                    {
+                        size = 0;
+                    }
+                    else
+                    {
+                        size = int.Parse(req);
+                    }
+                    byte[] bytes = HomeSender.AskPostImage(int.Parse(splitedB[0]), size);
+                    string debyted = Encoding.UTF8.GetString(bytes, 0, 32);
+
                     BitmapImage bitmap = Dispatcher.Invoke(() => DrawingToBitmap(ByteArrayToImage(bytes)));
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], bitmap, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
                 else
                 {
-                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6])));
+                    posts.Add(new Posts(int.Parse(splitedB[0]), splitedB[1], int.Parse(splitedB[2]), splitedB[3], splitedB[4], splitedB[5], null, int.Parse(splitedB[6]), int.Parse(splitedB[7])));
                 }
             }
             posts = posts.OrderByDescending(p => p.postId).ToList();
@@ -57,13 +76,6 @@ namespace KosLis
         {
             LoadingStack.Visibility = Visibility.Visible;
             await Task.Run(() => DisplayFeed());
-        }
-        public PostFeedPage()
-        {
-            InitializeComponent();
-            DisplayAsync();
-            //DisplayFeed();
-
         }
 
         public System.Drawing.Image ByteArrayToImage(byte[] byteArrayIn)
@@ -113,6 +125,15 @@ namespace KosLis
 
             }
         }
+        private void OpenSome1Profile(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int id = int.Parse(button.Tag.ToString());
+            var MW = Application.Current.MainWindow as MainWindow;
+            MW.ShowSome1Prof(id);
+
+        }
+
     }
 
     public class Posts
@@ -125,7 +146,8 @@ namespace KosLis
         public string postDate { get; set; }
         public BitmapImage postImage { get; set; }
         public int likeCount { get; set; }
-        public Posts(int userId, string userName, int postId, string postTitle, string postText, string postDate, BitmapImage postImage, int likeCount)
+        public string profilePhoto { get; set; }
+        public Posts(int postId, string userName, int userId, string postTitle, string postText, string postDate, BitmapImage postImage, int likeCount, int PhotoId)
         {
             this.userId = userId;
             this.userName = userName;
@@ -135,6 +157,12 @@ namespace KosLis
             this.postDate = postDate;
             this.postImage = postImage;
             this.likeCount = likeCount;
+            profilePhoto = $@"IMGs/PPs/{PhotoId}.jpg";
+            //BitmapImage bitmap = new BitmapImage();
+            //bitmap.BeginInit();
+            //bitmap.UriSource = new Uri($@"IMGs/PPs/{PhotoId}.jpg", UriKind.Relative);
+            //bitmap.EndInit();
+            //profilePhoto = bitmap;
         }
     }
 }
