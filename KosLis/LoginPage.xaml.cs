@@ -88,7 +88,7 @@ namespace KosLis
         }
         private void CreateAcc(string em, string nn, string nm, string sn, string pw)
         {
-            string response = LoginSender.SendRegisteringMessage(em, nn, nm, sn, pw);
+            string response = LoginSender.Registering(em, nn, nm, sn, pw);
             if (response == "EMUsed")
             {
                 Dispatcher.Invoke(() => ErrOut(7));
@@ -159,7 +159,7 @@ namespace KosLis
         }
         private void LoginSend(string em, string pw)
         {
-            string response = LoginSender.SendMessageFromSocket(em,pw);
+            string response = LoginSender.Login(em,pw);
             string[] splitedResponse = response.Split(';');
             if (splitedResponse[0] == "userdata")
             {

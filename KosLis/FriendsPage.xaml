@@ -47,11 +47,14 @@
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                        <Grid>
+                                            <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Button Background="{x:Null}" x:Name="ToProfileBT" Tag="{Binding Id}" Click="OpenSome1Profile" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                                        </Grid>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
 
                                     </StackPanel>
@@ -79,11 +82,14 @@
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Grid.ColumnSpan="2" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                        <Grid>
+                                            <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Button Background="{x:Null}" x:Name="ToProfileBT" Tag="{Binding Id}" Click="OpenSome1Profile" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                                        </Grid>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
 
                                     </StackPanel>
@@ -112,11 +118,14 @@
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Grid.ColumnSpan="3" Fill="#2F2F2F" RadiusX="15" RadiusY="15"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                        <Grid>
+                                            <Ellipse Margin="10,0,0,0" Width="50" Height="50" >
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding ProfilePhoto}"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Button Background="{x:Null}" x:Name="ToProfileBT" Tag="{Binding Id}" Click="OpenSome1Profile" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                                        </Grid>
                                         <Label Margin="10,0,0,0" FontSize="16" Content="{Binding Nickname}"/>
 
                                     </StackPanel>

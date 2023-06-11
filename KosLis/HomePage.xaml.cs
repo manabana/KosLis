@@ -50,6 +50,7 @@ namespace KosLis
         {
             var uriSource3 = new Uri($@"IMGs/PPs/{newPhotoId}.jpg", UriKind.Relative);
             PP.ImageSource = new BitmapImage(uriSource3);
+            Photo = newPhotoId;
 
         }
         public void OpenSome1Profile(int id)

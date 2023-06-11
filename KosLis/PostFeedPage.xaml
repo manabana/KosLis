@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="600"
       Title="PostFeedPage">
 
-    <Grid>
+    <Grid x:Name="qqq">
         <Grid VerticalAlignment="Top" x:Name="LoadingStack" Visibility="Collapsed">
             <Image Source="IMGs/Loading.png" Height="80" Width="80" >
                 <Image.RenderTransform>
@@ -62,9 +62,9 @@
                                 <Grid MaxWidth="584" MaxHeight="328.5" Visibility="Visible" Background="Black" >
                                     <Image Source="{Binding postImage}" MaxWidth="584" MaxHeight="328.5"/>
                                 </Grid>
-                                <StackPanel Margin="10" Orientation="Horizontal" Visibility="Visible">
+                                <StackPanel x:Name="LikeContainer" Margin="10" Orientation="Horizontal" Visibility="Visible">
                                     <Button BorderBrush="{x:Null}" Click="Rate" Content="🡹" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
-                                    <Label x:Name="likesOut" Content="{Binding likeCount}" Margin="10" FontSize="18" Foreground="White"/>
+                                    <Label x:Name="likesOut" Content="{Binding likeCount}" Tag="{Binding labelconnector}" Margin="10" FontSize="18" Foreground="White"/>
                                     <Button BorderBrush="{x:Null}" Click="Rate" Content="🡻" Tag="{Binding postId}" Foreground="White" Background="{x:Null}"/>
                                 </StackPanel>
                             </StackPanel>

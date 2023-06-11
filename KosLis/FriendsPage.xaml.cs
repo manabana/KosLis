@@ -501,6 +501,14 @@ namespace KosLis
             }
 
         }
+        private void OpenSome1Profile(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int id = int.Parse(button.Tag.ToString());
+            var MW = Application.Current.MainWindow as MainWindow;
+            MW.ShowSome1Prof(id);
+
+        }
     }
     public enum MessageType
     {

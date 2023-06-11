@@ -10,7 +10,7 @@ namespace QuerySender
 {
     public class LoginSender
     {
-        public static string SendMessageFromSocket(string lg, string pw)
+        public static string Login(string lg, string pw)
         {
             // Буфер для входящих данных
             byte[] bytes = new byte[1024];
@@ -50,7 +50,7 @@ namespace QuerySender
             sender.Close();
             return Encoding.UTF8.GetString(bytes, 0, bytesRec);
         }
-        public static string SendRegisteringMessage(string email, string nickname, string name, string surname,string password)
+        public static string Registering(string email, string nickname, string name, string surname,string password)
         {
             // Буфер для входящих данных
             byte[] bytes = new byte[1024];

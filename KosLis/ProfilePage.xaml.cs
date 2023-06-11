@@ -32,6 +32,7 @@ namespace KosLis
         string Name;
         string Surname;
         string Password;
+        int Photo;
         HomePage Home;
         public ProfilePage(int id, string em,string nn,string nm,string sn, string pw, int pf, HomePage home)
         {
@@ -42,6 +43,7 @@ namespace KosLis
             Name = nm;
             Surname = sn;
             Password = pw;
+            Photo = pf;
             Home = home;
 
             var uriSource3 = new Uri($@"IMGs/PPs/{pf}.jpg", UriKind.Relative);
@@ -225,6 +227,15 @@ namespace KosLis
 
         private void ToProfileBT(object sender, RoutedEventArgs e)
         {
+            string tag1 = $"Check{Photo}"; // тег, который вы хотите найти
+            string tag = $"Image{Photo}";
+            System.Windows.Controls.Image image = (System.Windows.Controls.Image)ImageContainer.FindName(tag);
+            Label label = (Label)ImageContainer.FindName(tag1);
+
+            BlurEffect blur = new BlurEffect { Radius = 5 };
+            image.Effect = blur;
+            label.Visibility = Visibility.Visible;
+
             TopGrid.IsEnabled = false;
             BlurEffect blurEffect = new BlurEffect();
             TopGrid.Effect = blurEffect;

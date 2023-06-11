@@ -239,9 +239,16 @@ namespace KosLis
             MsgLV.ItemsSource = null;
             MsgLV.ItemsSource = messages;
             MsgLV.Items.MoveCurrentToLast();
-            if(IsRefresh == false)
+            try
             {
-                MsgLV.ScrollIntoView(MsgLV.Items.CurrentItem);
+                if (IsRefresh == false)
+                {
+                    MsgLV.ScrollIntoView(MsgLV.Items.CurrentItem);
+                }
+            }
+            catch
+            {
+                FillLV(messages, false);
             }
 
         }
