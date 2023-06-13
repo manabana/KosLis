@@ -40,6 +40,10 @@ namespace KosLis
             {
                 LoginChecker.IsChecked = true;
             }
+            if (File.Exists("fastupdate.bin"))
+            {
+                UpdateChecker.IsChecked = true;
+            }
 
         }
         private string ChangePassword(int userid, string pastPassword, string nextPassword)
@@ -274,5 +278,17 @@ namespace KosLis
             MessageGrid.BeginAnimation(OpacityProperty, animation2);
         }
 
+        private void UDFaster(object sender, RoutedEventArgs e)
+        {
+            File.Create("fastupdate.bin");
+        }
+
+        private void UDSlower(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists("fastupdate.bin"))
+            {
+                File.Delete("fastupdate.bin");
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using QuerySender;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Channels;
@@ -35,6 +36,8 @@ namespace KosLis
         private int GlobalId;
         private string Nick;
         private string Password;
+        int refreshes = 3000;
+
         public MessengerPage(int Id, string Nick, string Password)
         {
             InitializeComponent();
@@ -42,6 +45,10 @@ namespace KosLis
             GlobalId = Id;
             this.Nick = Nick;
             this.Password = Password;
+            if (File.Exists("fastupdate.bin"))
+            {
+                refreshes = 750;
+            }
             FirstActions();
         }
         private async Task FirstActions()
@@ -127,7 +134,7 @@ namespace KosLis
         {
             while(true)
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(refreshes);
                 if(MessengerGrid.Visibility == Visibility.Visible)//if(messages.Count > 0)
                 {
                     MessagesAsync(true);
@@ -236,6 +243,11 @@ namespace KosLis
         }
         private void FillLV(List<Messages> messages, bool IsRefresh)
         {
+            if(int.Parse(MsgLV.Tag.ToString()) != messages.Count)
+            {
+                IsRefresh = false;
+            }
+            MsgLV.Tag = messages.Count;
             MsgLV.ItemsSource = null;
             MsgLV.ItemsSource = messages;
             MsgLV.Items.MoveCurrentToLast();

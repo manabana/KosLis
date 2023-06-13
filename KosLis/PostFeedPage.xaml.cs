@@ -116,11 +116,8 @@ namespace KosLis
                     if (parent != null && parent is FrameworkElement)
                     {
                         FrameworkElement parentElement = parent as FrameworkElement;
-                        // теперь вы можете работать с родительским элементом
                         Label myLabel = parentElement.FindName("likesOut") as Label;
-
                         myLabel.Content = int.Parse(myLabel.Content.ToString()) + 1;
-
                     }
                 }
             }
@@ -135,11 +132,8 @@ namespace KosLis
                     if (parent != null && parent is FrameworkElement)
                     {
                         FrameworkElement parentElement = parent as FrameworkElement;
-                        // теперь вы можете работать с родительским элементом
                         Label myLabel = parentElement.FindName("likesOut") as Label;
-
                         myLabel.Content = int.Parse(myLabel.Content.ToString()) - 1;
-
                     }
 
                 }
@@ -168,7 +162,6 @@ namespace KosLis
         public BitmapImage postImage { get; set; }
         public int likeCount { get; set; }
         public string profilePhoto { get; set; }
-        public string labelconnector;
         public Posts(int postId, string userName, int userId, string postTitle, string postText, string postDate, BitmapImage postImage, int likeCount, int PhotoId)
         {
             this.userId = userId;
@@ -179,7 +172,6 @@ namespace KosLis
             this.postDate = postDate;
             this.postImage = postImage;
             this.likeCount = likeCount;
-            labelconnector = $"likes{postId}";
             profilePhoto = $@"IMGs/PPs/{PhotoId}.jpg";
             //BitmapImage bitmap = new BitmapImage();
             //bitmap.BeginInit();

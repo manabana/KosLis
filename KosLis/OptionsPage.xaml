@@ -30,7 +30,7 @@
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Label Margin="15,0,0,0" Content="Увеличенная частота обновления диалогов" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
+                        <CheckBox x:Name="UpdateChecker" Grid.Column="1" Checked="UDFaster" Unchecked="UDSlower" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>
                     </Grid>
                 </Grid>
                 <Grid Margin="0,5,0,0" VerticalAlignment="Center" Height="50">

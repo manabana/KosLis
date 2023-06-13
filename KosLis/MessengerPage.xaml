@@ -89,7 +89,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Rectangle Fill="#151515" RadiusX="15" RadiusY="15" Grid.RowSpan="3"/>
-            <ListView ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Grid.Row="1" x:Name="MsgLV">
+            <ListView ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Grid.Row="1" Tag="0" x:Name="MsgLV">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
