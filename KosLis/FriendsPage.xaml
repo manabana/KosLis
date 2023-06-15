@@ -155,7 +155,7 @@
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Width="550" FontSize="16" Foreground="LightGray" x:Name="FriendTB" Background="#232323"/>
-                <Button Click="AddFriend" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Grid.Column="1">
+                <Button Click="AddFriend" ToolTip="Отправить заявку в друзья" ToolTipService.InitialShowDelay="2000" Width="40" Height="40" Style="{StaticResource MaterialDesignIconButton}" Grid.Column="1">
                     <Button.Content>
                         <Image Height="35" Width="35" Source="IMGs/Addfriend.png"/>
                     </Button.Content>

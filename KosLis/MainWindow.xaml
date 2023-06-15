@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
         <Grid MouseDown="Grid_MouseDown" Background="#141414">
             <StackPanel FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Center" Height="15" Orientation="Horizontal" Width="55">
-                <Button Click="CloseWindow" VerticalAlignment="Center" Margin="0,0,2,0" Grid.Row="1" Width="14" Height="14" Content="">
+                <Button ToolTip="Закрыть" ToolTipService.InitialShowDelay="2000" Click="CloseWindow" VerticalAlignment="Center" Margin="0,0,2,0" Grid.Row="1" Width="14" Height="14" Content="">
                     <Button.Template>
                         <ControlTemplate  TargetType="Button">
                             <Grid>
@@ -46,18 +46,18 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button Click="ExpandWindow" VerticalAlignment="Center" Margin="0,0,2,0" Grid.Row="1" Width="14" Height="14" Content="">
+                <Button ToolTip="Режим окна" ToolTipService.InitialShowDelay="2000" Click="ExpandWindow" VerticalAlignment="Center" Margin="0,0,2,0" Grid.Row="1" Width="14" Height="14" Content="">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
-                                <Ellipse Fill="DarkGreen"></Ellipse>
-                                <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center"
+                               <Ellipse Fill="DarkGreen"></Ellipse>
+                               <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center"
                                VerticalAlignment="Center"></Label>
                             </Grid>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button Click="MinimizeWindow" VerticalAlignment="Center" Grid.Row="1" Width="14" Height="14">
+                <Button ToolTip="Свернуть окно" ToolTipService.InitialShowDelay="2000" Click="MinimizeWindow" VerticalAlignment="Center" Grid.Row="1" Width="14" Height="14">
                     <Button.Template>
                         <ControlTemplate  TargetType="Button">
                             <Grid>

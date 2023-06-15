@@ -127,6 +127,10 @@ namespace KosLis
         {
             int a = UserID;
             string b = PostTitleTB.Text;
+            if(b == "Заголовок")
+            {
+                b = "";
+            }
             string c = ContentTextRTB.Text;
             string e = Password;
             await Task.Run(() => PublishPost(a,b,c,ImageBytesG,e,ImageSize));
