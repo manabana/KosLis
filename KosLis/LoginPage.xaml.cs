@@ -443,20 +443,13 @@ namespace KosLis
             else { }
 
         }
-
-
-
-
-
-
-
         private void PWVisibilitySwitch3(object sender, RoutedEventArgs e)
         {
-            if (swtVis1 == false)
+            if (swtVis3 == false)
 
             {
                 var uriSource8 = new Uri(@"IMGs/hide.png", UriKind.Relative);
-                PWVis1.Source = new BitmapImage(uriSource8);
+                PWVis3.Source = new BitmapImage(uriSource8);
                 PasswordTB3.Visibility = Visibility.Visible;
                 PasswordPB3.Visibility = Visibility.Collapsed;
                 swtVis3 = !swtVis3;
@@ -464,7 +457,7 @@ namespace KosLis
             else
             {
                 var uriSource4 = new Uri(@"IMGs/show.png", UriKind.Relative);
-                PWVis1.Source = new BitmapImage(uriSource4);
+                PWVis3.Source = new BitmapImage(uriSource4);
                 PasswordTB3.Visibility = Visibility.Collapsed;
                 PasswordPB3.Visibility = Visibility.Visible;
                 swtVis3 = !swtVis3;
@@ -474,7 +467,7 @@ namespace KosLis
 
         private void PasswordDown3(object sender, KeyEventArgs e)
         {
-            PasswordTB3.Text = PasswordPB.Password;
+            PasswordTB3.Text = PasswordPB3.Password;
 
         }
 

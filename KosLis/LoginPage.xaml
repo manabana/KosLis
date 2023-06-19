@@ -106,14 +106,13 @@
                 <StackPanel Visibility="Visible" x:Name="FirstResetStage">
                     <TextBlock Margin="20" FontSize="14" Foreground="White" Text="Если вы забыли свой пароль, введите адрес электронной почты который вы ввели при регистрации, вам будет выслан код для сброса." TextWrapping="Wrap"/>
                     <TextBox LostFocus="TBFilling" x:Name="ResEmailTB" GotFocus="TBCleaning" Foreground="DarkGray" Tag="Электронная почта" Text="Электронная почта" FontSize="16" Width="250"/>
-                    <Button Click="SendResetQuery" Content="Отправить код" Margin="20"/>
+                    <Button Click="SendResetQuery" Content="Получить код" Margin="20"/>
                     <Button Content="Отменить" Click="UndoReset"  Width="100" Style="{StaticResource MaterialDesignFlatAccentButton}"/>
                 </StackPanel>
                 <StackPanel Visibility="Collapsed" x:Name="SecondResetStage">
                     <TextBlock x:Name="CodeTB" Margin="20" FontSize="14" Foreground="White" Text="Введите код с электронной почты и новый пароль" TextWrapping="Wrap"/>
                     
                     <TextBox HorizontalAlignment="Left" TabIndex="0" LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="CodeTBL" Foreground="DarkGray" Tag="Код" Text="Код" FontSize="16" Width="100" Margin="20,30,0,0"/>
-                    <TextBox Visibility="Collapsed" TabIndex="1" LostFocus="TBFilling" GotFocus="TBCleaning" x:Name="PasswordTBL3" Foreground="DarkGray" Tag="Пароль" Text="Пароль" FontSize="16" Width="250" Margin="0,20,0,0"/>
                     <StackPanel HorizontalAlignment="Left" Margin="20,25,0,0"  Width="190" Orientation="Horizontal">
                         <Grid HorizontalAlignment="Center" Margin="0,0,0,0" Width="150">
                             <TextBlock x:Name="tblPasswordHint3" FontSize="16" Width="150" VerticalAlignment="Center" Text="Пароль" Foreground="DarkGray"/>
