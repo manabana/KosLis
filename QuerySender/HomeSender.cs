@@ -735,5 +735,54 @@ namespace QuerySender
                 return "ServerNotResponding";
             }
         }
+        public static string SendEmailResetQuery(string email)
+        {
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"REmail;{email}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "ServerNotResponding";
+            }
+
+        }
+        public static string SendResCode(string email, string code, string password)
+        {
+            byte[] bytes = new byte[32];
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"resetCode;{email};{code};{password}";
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+                int bytesSent = sender.Send(msg);
+                int bytesRec = sender.Receive(bytes);
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "ServerNotResponding";
+            }
+
+        }
+
     }
 }

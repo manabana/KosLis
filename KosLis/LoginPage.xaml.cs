@@ -27,6 +27,7 @@ namespace KosLis
     {
         bool swtVis = false;
         bool swtVis1 = false;
+        bool swtVis3 = false;
         public LoginPage()
         {
             InitializeComponent();
@@ -441,6 +442,94 @@ namespace KosLis
             }
             else { }
 
+        }
+
+
+
+
+
+
+
+        private void PWVisibilitySwitch3(object sender, RoutedEventArgs e)
+        {
+            if (swtVis1 == false)
+
+            {
+                var uriSource8 = new Uri(@"IMGs/hide.png", UriKind.Relative);
+                PWVis1.Source = new BitmapImage(uriSource8);
+                PasswordTB3.Visibility = Visibility.Visible;
+                PasswordPB3.Visibility = Visibility.Collapsed;
+                swtVis3 = !swtVis3;
+            }
+            else
+            {
+                var uriSource4 = new Uri(@"IMGs/show.png", UriKind.Relative);
+                PWVis1.Source = new BitmapImage(uriSource4);
+                PasswordTB3.Visibility = Visibility.Collapsed;
+                PasswordPB3.Visibility = Visibility.Visible;
+                swtVis3 = !swtVis3;
+            }
+
+        }
+
+        private void PasswordDown3(object sender, KeyEventArgs e)
+        {
+            PasswordTB3.Text = PasswordPB.Password;
+
+        }
+
+        private void TextBoxDown3(object sender, KeyEventArgs e)
+        {
+            PasswordPB3.Password = "";
+            PasswordPB3.Password += PasswordTB3.Text;
+        }
+
+        private void PWBFilling3(object sender, RoutedEventArgs e)
+        {
+            if (PasswordPB3.Password.Length == 0)
+            {
+                tblPasswordHint3.Visibility = Visibility.Visible;
+            }
+            else { }
+
+        }
+
+        private void PWBCleaning3(object sender, RoutedEventArgs e)
+        {
+            if (PasswordPB3.Password.Length == 0)
+            {
+                tblPasswordHint3.Visibility = Visibility.Collapsed;
+            }
+            else { }
+
+        }
+        private void SendResetQuery(object sender, RoutedEventArgs e)
+        {
+            string resp = HomeSender.SendEmailResetQuery(ResEmailTB.Text);
+            FirstResetStage.Visibility = Visibility.Collapsed;
+            SecondResetStage.Visibility = Visibility.Visible;
+        }
+
+        private void SendCode(object sender, RoutedEventArgs e)
+        {
+            string resp = HomeSender.SendResCode(ResEmailTB.Text, CodeTBL.Text, PasswordPB3.Password);
+            if (true) 
+            {
+                ResetStack.Visibility = Visibility.Collapsed;
+                LoginStack.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ResetStack.Visibility = Visibility.Visible;
+            LoginStack.Visibility = Visibility.Collapsed;
+        }
+
+        private void UndoReset(object sender, RoutedEventArgs e)
+        {
+            ResetStack.Visibility = Visibility.Collapsed;
+            LoginStack.Visibility = Visibility.Visible;
         }
     }
 }

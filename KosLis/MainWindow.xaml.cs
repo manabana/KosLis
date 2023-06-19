@@ -61,7 +61,7 @@ namespace KosLis//MessageBox.Show((SystemInformation.PowerStatus.BatteryLifePerc
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(38, 38, 38));
+            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(48, 48, 48));
             isActive.Fill = brush;
 
         }

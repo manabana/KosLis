@@ -71,7 +71,7 @@
 
 
             </StackPanel>
-            <Ellipse x:Name="isActive" HorizontalAlignment="Left" Margin="3.5,0,0,0" Fill="#363636" Height="10" Width="10"/>
+            <Ellipse x:Name="isActive" HorizontalAlignment="Left" Margin="3.5,0,0,0" Fill="#303030" Height="10" Width="10"/>
             <Grid Width="100">
             </Grid>
         </Grid>
