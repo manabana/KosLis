@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace KosLis
 {
@@ -239,6 +240,7 @@ namespace KosLis
                     LoginStack.Visibility = Visibility.Collapsed;
                     MessageStack.Visibility = Visibility.Visible;
                     LoadingStack.Visibility= Visibility.Collapsed;
+                    ResetStack.Visibility= Visibility.Collapsed;
                     var uriSource3 = new Uri(@"IMGs/serverErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource3);
                     ErrText.Text = "Сервер недоступен!";
@@ -271,6 +273,7 @@ namespace KosLis
                     LoginStack.Visibility = Visibility.Collapsed;
                     MessageStack.Visibility = Visibility.Visible;
                     LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
                     var uriSource5 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource5);
                     ErrText.Text = "Электронная почта введена неверно!";
@@ -287,6 +290,7 @@ namespace KosLis
                     LoginStack.Visibility = Visibility.Collapsed;
                     MessageStack.Visibility = Visibility.Visible;
                     LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility= Visibility.Collapsed;
                     var uriSource7 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
                     ErrIMG.Source = new BitmapImage(uriSource7);
                     ErrText.Text = "Допустимая длина пароля - от 8 до 25 символов!";
@@ -307,8 +311,24 @@ namespace KosLis
                     ErrIMG.Source = new BitmapImage(uriSource9);
                     ErrText.Text = "Ник занят!";
                     break;
-
-
+                case 9:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    var uriSource10 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource10);
+                    ErrText.Text = "Указан неверный код!";
+                    break;
+                case 10:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    var uriSource11 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource11);
+                    ErrText.Text = "Код не был отправлен!";
+                    break;
             }
         }
         internal void ErrUnknown(string resp)
@@ -498,19 +518,114 @@ namespace KosLis
         }
         private void SendResetQuery(object sender, RoutedEventArgs e)
         {
-            string resp = HomeSender.SendEmailResetQuery(ResEmailTB.Text);
-            FirstResetStage.Visibility = Visibility.Collapsed;
-            SecondResetStage.Visibility = Visibility.Visible;
+            publLBL.Visibility = Visibility.Collapsed;
+            loadLBL.Visibility = Visibility.Visible;
+            ResetStack.IsEnabled = false;
+            SendResetQueryAsync();
         }
+        private async Task SendResetQueryAsync()
+        {
+            string a = ResEmailTB.Text;
+            Regex regex = new Regex(@"\w*@\w*.\w*");
+            MatchCollection matches = regex.Matches(a);
+            if (matches.Count > 0)
+            {
+                await Task.Run(() => SRQ(a));
+            }
+            else
+            {
+                ErrOut(4);
+                publLBL.Visibility = Visibility.Visible;
+                loadLBL.Visibility = Visibility.Collapsed;
+                ResetStack.IsEnabled = true;
 
+            }
+        }
+        private void SRQ(string email)
+        {
+            string resp = HomeSender.SendEmailResetQuery(email);
+            Dispatcher.Invoke(() =>
+            {
+                if (resp == "OK")
+                {
+                    FirstResetStage.Visibility = Visibility.Collapsed;
+                    SecondResetStage.Visibility = Visibility.Visible;
+                    publLBL.Visibility = Visibility.Visible;
+                    loadLBL.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+                else if(resp == "NotSended")
+                {
+                    ErrOut(10);
+                    publLBL.Visibility = Visibility.Visible;
+                    loadLBL.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+                else if (resp == "ServerNotResponding")
+                {
+                    ErrOut(0);
+                    publLBL.Visibility = Visibility.Visible;
+                    loadLBL.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+
+            });
+        }
         private void SendCode(object sender, RoutedEventArgs e)
         {
-            string resp = HomeSender.SendResCode(ResEmailTB.Text, CodeTBL.Text, PasswordPB3.Password);
-            if (true) 
+            publLBL2.Visibility = Visibility.Collapsed;
+            loadLBL2.Visibility = Visibility.Visible;
+            ResetStack.IsEnabled = false;
+            SendCodeAsync();
+        }
+        private async Task SendCodeAsync()
+        {
+            string a = ResEmailTB.Text;
+            string b = CodeTBL.Text;
+            string c = PasswordPB3.Password;
+            if(c.Length >= 8 && c.Length <= 25)
             {
-                ResetStack.Visibility = Visibility.Collapsed;
-                LoginStack.Visibility = Visibility.Visible;
+                await Task.Run(() => CodeSender(a,b,c));
             }
+            else
+            {
+                ErrOut(6);
+                publLBL.Visibility = Visibility.Visible;
+                loadLBL.Visibility = Visibility.Collapsed;
+                ResetStack.IsEnabled = true;
+
+            }
+        }
+        private void CodeSender(string email, string code, string password)
+        {
+            string resp = HomeSender.SendResCode(email, code, password);
+            Console.WriteLine(resp);
+            Dispatcher.Invoke(() =>
+            {
+                if (resp == "Success")
+                {
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    LoginStack.Visibility = Visibility.Visible;
+                    publLBL2.Visibility = Visibility.Visible;
+                    loadLBL2.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+                else if (resp == "NotVerified")
+                {
+                    ErrOut(9);
+                    publLBL2.Visibility = Visibility.Visible;
+                    loadLBL2.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+                else if (resp == "ServerNotResponding")
+                {
+                    ErrOut(0);
+                    publLBL2.Visibility = Visibility.Visible;
+                    loadLBL2.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+            });
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

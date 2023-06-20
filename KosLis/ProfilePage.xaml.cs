@@ -233,8 +233,11 @@ namespace KosLis
             Label label = (Label)ImageContainer.FindName(tag1);
 
             BlurEffect blur = new BlurEffect { Radius = 5 };
-            image.Effect = blur;
-            label.Visibility = Visibility.Visible;
+            if(image != null && label != null)
+            {
+                image.Effect = blur;
+                label.Visibility = Visibility.Visible;
+            }
 
             TopGrid.IsEnabled = false;
             BlurEffect blurEffect = new BlurEffect();

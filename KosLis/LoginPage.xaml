@@ -106,7 +106,33 @@
                 <StackPanel Visibility="Visible" x:Name="FirstResetStage">
                     <TextBlock Margin="20" FontSize="14" Foreground="White" Text="Если вы забыли свой пароль, введите адрес электронной почты который вы ввели при регистрации, вам будет выслан код для сброса." TextWrapping="Wrap"/>
                     <TextBox LostFocus="TBFilling" x:Name="ResEmailTB" GotFocus="TBCleaning" Foreground="DarkGray" Tag="Электронная почта" Text="Электронная почта" FontSize="16" Width="250"/>
-                    <Button Click="SendResetQuery" Content="Получить код" Margin="20"/>
+                    <Button Click="SendResetQuery" x:Name="FirstRBT" Margin="20">
+                        <Button.Content>
+                        <Grid>
+                            <Label Visibility="Visible" x:Name="publLBL" Content="Получить код"/>
+                            <Image Visibility="Collapsed" x:Name="loadLBL" Source="IMGs/Loading.png" Height="24" Width="24" >
+                                <Image.RenderTransform>
+                                    <RotateTransform x:Name="rotate"
+                         CenterX="12"
+                         CenterY="12"/>
+                                </Image.RenderTransform>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="rotate"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                            </Image>
+
+                        </Grid>
+
+                    </Button.Content>
+                    </Button>
                     <Button Content="Отменить" Click="UndoReset"  Width="100" Style="{StaticResource MaterialDesignFlatAccentButton}"/>
                 </StackPanel>
                 <StackPanel Visibility="Collapsed" x:Name="SecondResetStage">
@@ -124,14 +150,40 @@
                         </Button>
                     </StackPanel>
 
-                    <Button Margin="20" Content="Сменить пароль" Click="SendCode"/>
+                    <Button Margin="20" x:Name="SecondRBT" Click="SendCode">
+                        <Button.Content>
+                            <Grid>
+                                <Label Visibility="Visible" x:Name="publLBL2" Content="Сменить пароль"/>
+                                <Image Visibility="Collapsed" x:Name="loadLBL2" Source="IMGs/Loading.png" Height="24" Width="24" >
+                                    <Image.RenderTransform>
+                                        <RotateTransform x:Name="rotate2"
+                         CenterX="12"
+                         CenterY="12"/>
+                                    </Image.RenderTransform>
+                                    <Image.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever">
+                                                    <DoubleAnimation Storyboard.TargetName="rotate2"
+                                     Storyboard.TargetProperty="Angle"
+                                     By="360" Duration="0:0:1"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Image.Triggers>
+                                </Image>
+
+                            </Grid>
+
+                        </Button.Content>
+                    </Button>
                     <Button Content="Отменить" Click="UndoReset" Width="100" Style="{StaticResource MaterialDesignFlatAccentButton}"/>
                 </StackPanel>
             </Grid>
             <Grid x:Name="LoadingStack" Visibility="Collapsed">
                 <Image Source="IMGs/Loading.png" Height="200" Width="200" >
                     <Image.RenderTransform>
-                        <RotateTransform x:Name="rotate"
+                        <RotateTransform x:Name="rotate3"
                          CenterX="100"
                          CenterY="100"/>
                     </Image.RenderTransform>
@@ -139,7 +191,7 @@
                         <EventTrigger RoutedEvent="Loaded">
                             <BeginStoryboard>
                                 <Storyboard RepeatBehavior="Forever">
-                                    <DoubleAnimation Storyboard.TargetName="rotate"
+                                    <DoubleAnimation Storyboard.TargetName="rotate3"
                                      Storyboard.TargetProperty="Angle"
                                      By="360" Duration="0:0:1"/>
                                 </Storyboard>
