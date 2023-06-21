@@ -329,6 +329,15 @@ namespace KosLis
                     ErrIMG.Source = new BitmapImage(uriSource11);
                     ErrText.Text = "Код не был отправлен!";
                     break;
+                case 11:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    ErrIMG.Source = new BitmapImage(new Uri(@"IMGs/UnkErr.png", UriKind.Relative));
+                    ErrText.Text = "Пользователя с таким E-mail не найдено!";
+                    break;
+
             }
         }
         internal void ErrUnknown(string resp)
@@ -564,6 +573,13 @@ namespace KosLis
                 else if (resp == "ServerNotResponding")
                 {
                     ErrOut(0);
+                    publLBL.Visibility = Visibility.Visible;
+                    loadLBL.Visibility = Visibility.Collapsed;
+                    ResetStack.IsEnabled = true;
+                }
+                else if (resp == "UserNotFound")
+                {
+                    ErrOut(11);
                     publLBL.Visibility = Visibility.Visible;
                     loadLBL.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
