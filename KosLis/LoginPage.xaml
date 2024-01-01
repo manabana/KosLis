@@ -76,14 +76,23 @@
             </StackPanel>
             <StackPanel x:Name="IPStack" Visibility="Collapsed">
                 <Button Height="25" Width="25" Margin="10" Style="{StaticResource MaterialDesignToolButton}" HorizontalAlignment="Left" Foreground="White" Click="MoveToLog" Content="🠔"/>
+                <Label HorizontalAlignment="Center" Content="Настройте TCP для подключения к серверу." Margin="30,0,30,0"/>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBox Width="50" Height="25" x:Name="ipBlock1"/>
+                    <TextBox Foreground="White" FontSize="14" Width="50" Height="25" x:Name="ipBlock1"/>
                     <Label Content="."/>
                     <TextBox Width="50" Height="25" x:Name="ipBlock2"/>
                     <Label Content="."/>
                     <TextBox Width="50" Height="25" x:Name="ipBlock3"/>
                     <Label Content="."/>
                     <TextBox Width="50" Height="25" x:Name="ipBlock4"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center"  Margin="0,10,0,10" Orientation="Horizontal">
+                    <Label Content="Main Port"/>
+                    <TextBox Width="50" Foreground="White" Margin="10,0,0,0"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label Content="Image Port"/>
+                    <TextBox Width="50" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
                 <Button Width="110" Margin="30" Content="Сохранить"/>
 

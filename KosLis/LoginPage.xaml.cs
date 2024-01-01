@@ -663,7 +663,7 @@ namespace KosLis
             IPStack.Visibility = Visibility.Visible;
             DoubleAnimation downScaling = new DoubleAnimation();
             downScaling.From = SignGrid.ActualHeight;
-            downScaling.To = 180;
+            downScaling.To = 240;
             downScaling.Duration = TimeSpan.FromSeconds(0.25);
             SignGrid.BeginAnimation(Grid.HeightProperty, downScaling);
         }
