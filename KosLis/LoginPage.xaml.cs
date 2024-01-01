@@ -80,6 +80,7 @@ namespace KosLis
         {
             RegStack.Visibility = Visibility.Collapsed;
             LoginStack.Visibility = Visibility.Visible;
+            IPStack.Visibility = Visibility.Collapsed;
             DoubleAnimation downScaling = new DoubleAnimation();
             downScaling.From = SignGrid.ActualHeight;
             downScaling.To = 370;
@@ -654,6 +655,17 @@ namespace KosLis
         {
             ResetStack.Visibility = Visibility.Collapsed;
             LoginStack.Visibility = Visibility.Visible;
+        }
+
+        private void OpenIPSetter(object sender, RoutedEventArgs e)
+        {
+            LoginStack.Visibility = Visibility.Collapsed;
+            IPStack.Visibility = Visibility.Visible;
+            DoubleAnimation downScaling = new DoubleAnimation();
+            downScaling.From = SignGrid.ActualHeight;
+            downScaling.To = 180;
+            downScaling.Duration = TimeSpan.FromSeconds(0.25);
+            SignGrid.BeginAnimation(Grid.HeightProperty, downScaling);
         }
     }
 }

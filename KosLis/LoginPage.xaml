@@ -70,6 +70,23 @@
                 </StackPanel>
                 <Button TabIndex="3" Click="LoginSendBT" Height="30" Width="250" Margin="0,40,0,0" Content="Войти в аккаунт"/>
                 <Button Foreground="LightGray" TabIndex="4" FontSize="12" Margin="10" Content="Забыли пароль?" Style="{StaticResource MaterialDesignFlatAccentButton}" Height="25" Width="125" Cursor="Hand" Click="Button_Click"/>
+                <Button ToolTip="Настройка TCP" Height="25" HorizontalAlignment="Right" Margin="0,0,10,0" Width="25" Style="{StaticResource MaterialDesignIconButton}" TabIndex="5" Click="OpenIPSetter" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Bottom">
+                    <Image x:Name="SetIP" Source="IMGs/Options.png" Width="20" Height="20"/>
+                </Button>
+            </StackPanel>
+            <StackPanel x:Name="IPStack" Visibility="Collapsed">
+                <Button Height="25" Width="25" Margin="10" Style="{StaticResource MaterialDesignToolButton}" HorizontalAlignment="Left" Foreground="White" Click="MoveToLog" Content="🠔"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" x:Name="ipBlock1"/>
+                    <Label Content="."/>
+                    <TextBox Width="50" Height="25" x:Name="ipBlock2"/>
+                    <Label Content="."/>
+                    <TextBox Width="50" Height="25" x:Name="ipBlock3"/>
+                    <Label Content="."/>
+                    <TextBox Width="50" Height="25" x:Name="ipBlock4"/>
+                </StackPanel>
+                <Button Width="110" Margin="30" Content="Сохранить"/>
+
             </StackPanel>
             <StackPanel x:Name="RegStack" Visibility="Collapsed">
                 <TextBlock Margin="0,20,0,0" Foreground="LightGray" FontSize="26" Text="Создайте аккаунт" HorizontalAlignment="Center"  />
