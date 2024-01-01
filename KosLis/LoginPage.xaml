@@ -80,21 +80,21 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBox Foreground="White" FontSize="14" Width="50" Height="25" x:Name="ipBlock1"/>
                     <Label Content="."/>
-                    <TextBox Width="50" Height="25" x:Name="ipBlock2"/>
+                    <TextBox Foreground="White" Width="50" Height="25" x:Name="ipBlock2"/>
                     <Label Content="."/>
-                    <TextBox Width="50" Height="25" x:Name="ipBlock3"/>
+                    <TextBox Foreground="White" Width="50" Height="25" x:Name="ipBlock3"/>
                     <Label Content="."/>
-                    <TextBox Width="50" Height="25" x:Name="ipBlock4"/>
+                    <TextBox Foreground="White" Width="50" Height="25" x:Name="ipBlock4"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center"  Margin="0,10,0,10" Orientation="Horizontal">
                     <Label Content="Main Port"/>
-                    <TextBox Width="50" Foreground="White" Margin="10,0,0,0"/>
+                    <TextBox Width="50" x:Name="port1" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Label Content="Image Port"/>
-                    <TextBox Width="50" Foreground="White" Margin="10,0,0,0"/>
+                    <TextBox Width="50" x:Name="port2" Foreground="White" Margin="10,0,0,0"/>
                 </StackPanel>
-                <Button Width="110" Margin="30" Content="Сохранить"/>
+                <Button Width="110" Margin="30" Click="SaveNewTCP" Content="Сохранить"/>
 
             </StackPanel>
             <StackPanel x:Name="RegStack" Visibility="Collapsed">

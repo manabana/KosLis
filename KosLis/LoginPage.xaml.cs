@@ -338,6 +338,26 @@ namespace KosLis
                     ErrIMG.Source = new BitmapImage(new Uri(@"IMGs/UnkErr.png", UriKind.Relative));
                     ErrText.Text = "Пользователя с таким E-mail не найдено!";
                     break;
+                case 12:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    IPStack.Visibility = Visibility.Collapsed;
+                    var uriSource11 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource11);
+                    ErrText.Text = "Не удалось распознать IP!";
+                    break;
+                case 13:
+                    LoginStack.Visibility = Visibility.Collapsed;
+                    MessageStack.Visibility = Visibility.Visible;
+                    LoadingStack.Visibility = Visibility.Collapsed;
+                    ResetStack.Visibility = Visibility.Collapsed;
+                    IPStack.Visibility = Visibility.Collapsed;
+                    var uriSource11 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource11);
+                    ErrText.Text = "Не удалось распознать порты!";
+                    break;
 
             }
         }
@@ -666,6 +686,30 @@ namespace KosLis
             downScaling.To = 240;
             downScaling.Duration = TimeSpan.FromSeconds(0.25);
             SignGrid.BeginAnimation(Grid.HeightProperty, downScaling);
+        }
+        private void SaveNewTCP(object sender, RoutedEventArgs e)
+        {
+            string IP = "";
+            UInt16 MPort = 0;
+            UInt16 IPort = 0;
+            if(ipBlock1.TryParse() & ipBlock2.TryParse() & ipBlock3.TryParse() & ipBlock4.TryParse())
+            {
+                IP = $"{ipBlock1}.{ipBlock2}.{ipBlock3}.{ipBlock4}";
+            }
+            else
+            {
+                ErrOut(12);
+            }
+            if(port1.TryParse() & port2.TryParse())
+            {
+                //MPort = 
+                //IPort =
+            }
+            else
+            {
+                ErrOut(13);
+            }
+            
         }
     }
 }
