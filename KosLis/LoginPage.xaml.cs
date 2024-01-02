@@ -344,8 +344,8 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     ResetStack.Visibility = Visibility.Collapsed;
                     IPStack.Visibility = Visibility.Collapsed;
-                    var uriSource11 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
-                    ErrIMG.Source = new BitmapImage(uriSource11);
+                    var uriSource12 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource12);
                     ErrText.Text = "Не удалось распознать IP!";
                     break;
                 case 13:
@@ -354,8 +354,8 @@ namespace KosLis
                     LoadingStack.Visibility = Visibility.Collapsed;
                     ResetStack.Visibility = Visibility.Collapsed;
                     IPStack.Visibility = Visibility.Collapsed;
-                    var uriSource11 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
-                    ErrIMG.Source = new BitmapImage(uriSource11);
+                    var uriSource13 = new Uri(@"IMGs/UnkErr.png", UriKind.Relative);
+                    ErrIMG.Source = new BitmapImage(uriSource13);
                     ErrText.Text = "Не удалось распознать порты!";
                     break;
 
@@ -690,26 +690,61 @@ namespace KosLis
         private void SaveNewTCP(object sender, RoutedEventArgs e)
         {
             string IP = "";
-            UInt16 MPort = 0;
-            UInt16 IPort = 0;
-            if(ipBlock1.TryParse() & ipBlock2.TryParse() & ipBlock3.TryParse() & ipBlock4.TryParse())
+
+            bool MP = UInt16.TryParse(port1.Text, out ushort mport);
+            bool ImgP = UInt16.TryParse(port1.Text, out ushort iport);
+            bool IPB1 = byte.TryParse(ipBlock1.Text, out byte ipblock1);
+            bool IPB2 = byte.TryParse(ipBlock2.Text, out byte ipblock2);
+            bool IPB3 = byte.TryParse(ipBlock3.Text, out byte ipblock3);
+            bool IPB4 = byte.TryParse(ipBlock4.Text, out byte ipblock4);
+            if (IPB1 & IPB2 & IPB3 & IPB4)
             {
                 IP = $"{ipBlock1}.{ipBlock2}.{ipBlock3}.{ipBlock4}";
             }
             else
             {
                 ErrOut(12);
+                DoubleAnimation downScaling = new DoubleAnimation();
+                downScaling.From = SignGrid.ActualHeight;
+                downScaling.To = 370;
+                downScaling.Duration = TimeSpan.FromSeconds(0.25);
+                SignGrid.BeginAnimation(Grid.HeightProperty, downScaling);
+                return;
             }
-            if(port1.TryParse() & port2.TryParse())
+            ushort ImagePort = 0;
+            ushort MainPort = 0;
+            if (MP & ImgP)
             {
-                //MPort = 
-                //IPort =
+                MainPort = mport;
+                ImagePort = iport;
             }
             else
             {
                 ErrOut(13);
+                DoubleAnimation downScaling = new DoubleAnimation();
+                downScaling.From = SignGrid.ActualHeight;
+                downScaling.To = 370;
+                downScaling.Duration = TimeSpan.FromSeconds(0.25);
+                SignGrid.BeginAnimation(Grid.HeightProperty, downScaling);
+                return;
             }
-            
+            try
+            {
+
+                using (BinaryWriter writer = new BinaryWriter(File.Open("TCP.dat", FileMode.OpenOrCreate)))
+                {
+                    // записываем в файл строку
+                    writer.Write(IP);
+                    // записываем в файл число int
+                    writer.Write(MainPort);
+                    writer.Write(ImagePort);
+                }
+                MoveToLog(null, null);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
