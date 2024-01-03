@@ -32,6 +32,7 @@ namespace KosLis
         public LoginPage()
         {
             InitializeComponent();
+            HomeSender.InitializeTCP();
             if (File.Exists("login.bin"))
             {
                 using (BinaryReader reader = new BinaryReader(File.Open("login.bin", FileMode.Open)))
@@ -91,7 +92,7 @@ namespace KosLis
         }
         private void CreateAcc(string em, string nn, string nm, string sn, string pw)
         {
-            string response = LoginSender.Registering(em, nn, nm, sn, pw);
+            string response = HomeSender.Registering(em, nn, nm, sn, pw);
             if (response == "EMUsed")
             {
                 Dispatcher.Invoke(() => ErrOut(7));
@@ -162,7 +163,7 @@ namespace KosLis
         }
         private void LoginSend(string em, string pw)
         {
-            string response = LoginSender.Login(em,pw);
+            string response = HomeSender.Login(em,pw);
             string[] splitedResponse = response.Split(';');
             if (splitedResponse[0] == "userdata")
             {
@@ -699,7 +700,7 @@ namespace KosLis
             bool IPB4 = byte.TryParse(ipBlock4.Text, out byte ipblock4);
             if (IPB1 & IPB2 & IPB3 & IPB4)
             {
-                IP = $"{ipBlock1}.{ipBlock2}.{ipBlock3}.{ipBlock4}";
+                IP = $"{ipBlock1.Text}.{ipBlock2.Text}.{ipBlock3.Text}.{ipBlock4.Text}";
             }
             else
             {
@@ -737,8 +738,9 @@ namespace KosLis
                     writer.Write(IP);
                     // записываем в файл число int
                     writer.Write(MainPort);
-                    writer.Write(ImagePort);
+                    writer.Write((Int32)ImagePort);
                 }
+                HomeSender.InitializeTCP();
                 MoveToLog(null, null);
             }
             catch (Exception ex)

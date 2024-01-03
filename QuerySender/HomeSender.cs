@@ -31,12 +31,33 @@ namespace QuerySender
     }
     public class HomeSender
     {
+        static IPHostEntry ipHost;
+        static IPAddress ipAddr;
+        static IPEndPoint ipEndPoint;
+        static IPEndPoint ipEndPointI;
+
+        public static void InitializeTCP()
+        {
+            using (BinaryReader reader = new BinaryReader(File.Open("TCP.dat", FileMode.Open)))
+            {
+                // считываем из файла строку
+                string IP = reader.ReadString();
+                // считываем из файла число 
+                int MainPort = reader.ReadUInt16();
+                int ImagePort = reader.ReadInt32();
+                ipHost = Dns.GetHostEntry("localhost");
+                ipAddr = IPAddress.Parse(IP);
+                
+                ipEndPoint = new IPEndPoint(ipAddr, MainPort);
+                ipEndPointI = new IPEndPoint(ipAddr, ImagePort);
+
+            }
+        }
         public static string CheckServer()
         {
             byte[] bytes = new byte[128];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            
+
             using (var sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
             {
                 try
@@ -60,9 +81,7 @@ namespace QuerySender
         public static string RateChange(RateType rateType, int postId)
         {
             byte[] bytes = new byte[128];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
+            
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
@@ -94,9 +113,6 @@ namespace QuerySender
         public static string AskMessages(int dialogId)
         {
             byte[] bytes = new byte[4096];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -127,9 +143,6 @@ namespace QuerySender
         public static string SendMessage(string SendingMessage,int dialogId, int fromID,int toId)
         {
             byte[] bytes = new byte[128];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -152,9 +165,6 @@ namespace QuerySender
         public static string OpenOrCreateDialog(int IdA, int IdB)
         {
             byte[] bytes = new byte[1024];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -177,9 +187,6 @@ namespace QuerySender
         public static byte[] AskPostImage(int postId, int size)
         {
             byte[] bytes = new byte[size]; //7 MB
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -204,9 +211,6 @@ namespace QuerySender
         public static string AskPostImageSize(int postId)
         {
             byte[] bytes = new byte[32]; 
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -231,9 +235,6 @@ namespace QuerySender
         public static string AskUsers(int userId, AskUsersType askType)
         {
             byte[] bytes = new byte[1024];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -277,9 +278,6 @@ namespace QuerySender
         public static string AskPosts(int userId, AskPostsType askType)
         {
             byte[] bytes = new byte[1024];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -321,9 +319,6 @@ namespace QuerySender
             // Соединяемся с удаленным устройством
 
             // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -363,9 +358,6 @@ namespace QuerySender
             byte[] bytes = new byte[1024];
             // Соединяемся с удаленным устройством
             // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
@@ -398,9 +390,6 @@ namespace QuerySender
         public static string CheckPostImage(int postId)
         {
             byte[] bytes = new byte[128];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -430,16 +419,13 @@ namespace QuerySender
             // Соединяемся с удаленным устройством
 
             // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11001);
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             // Соединяем сокет с удаленной точкой
             try
             {
-                sender.Connect(ipEndPoint);
+                sender.Connect(ipEndPointI);
                 int bytesSent = sender.Send(image);
                 // Получаем ответ от сервера
                 //Thread.Sleep(100);
@@ -464,9 +450,6 @@ namespace QuerySender
         public static string AskPhoto(int id)
         {
             byte[] bytes = new byte[1024];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -487,9 +470,6 @@ namespace QuerySender
         public static string AddFriend(int userId, string friendNN, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -515,10 +495,6 @@ namespace QuerySender
             // Соединяемся с удаленным устройством
 
             // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             // Соединяем сокет с удаленной точкой
@@ -548,9 +524,6 @@ namespace QuerySender
         public static string RemoveFriend(int targetId, int removerId, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -572,9 +545,6 @@ namespace QuerySender
         public static string RejectRequest(int targetId, int rejectorId, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -596,9 +566,6 @@ namespace QuerySender
         public static string CancelRequest(int targetId, int cancellerId, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -620,9 +587,6 @@ namespace QuerySender
         public static string GetSome1Info(int userId)
         {
             byte[] bytes = new byte[512];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -644,9 +608,6 @@ namespace QuerySender
         public static string DeletePost(int postid, string userPassword)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -668,9 +629,6 @@ namespace QuerySender
         public static string EditUser(string type, int userid, string text, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -692,9 +650,6 @@ namespace QuerySender
         public static string ChangePassword(int userid, string pastPassword, string nextPassvord)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -715,9 +670,6 @@ namespace QuerySender
         public static string ChangeProfilePhoto(int userid,int photo, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -738,9 +690,6 @@ namespace QuerySender
         public static string SendEmailResetQuery(string email)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -762,9 +711,6 @@ namespace QuerySender
         public static string SendResCode(string email, string code, string password)
         {
             byte[] bytes = new byte[32];
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -781,6 +727,76 @@ namespace QuerySender
             {
                 return "ServerNotResponding";
             }
+
+        }
+        public static string Login(string lg, string pw)
+        {
+            // Буфер для входящих данных
+            byte[] bytes = new byte[1024];
+
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            // Соединяем сокет с удаленной точкой
+            try
+            {
+                sender.Connect(ipEndPoint);
+                string message = $"login;{lg};{pw}";
+
+                Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+                byte[] msg = Encoding.UTF8.GetBytes(message);
+
+                // Отправляем данные через сокет
+                int bytesSent = sender.Send(msg);
+
+                // Получаем ответ от сервера
+                int bytesRec = sender.Receive(bytes);
+
+                // Освобождаем сокет
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+            
+        }
+        public static string Registering(string email, string nickname, string name, string surname, string password)
+        {
+            // Буфер для входящих данных
+            byte[] bytes = new byte[1024];
+
+            // Соединяемся с удаленным устройством
+
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            // Соединяем сокет с удаленной точкой
+            try
+            {
+                sender.Connect(ipEndPoint);
+
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                return "Exception;ServerNotResponding";
+            }
+            string message = $"signup;{email};{nickname};{name};{surname};{password}";
+
+            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+            byte[] msg = Encoding.UTF8.GetBytes(message);
+
+            // Отправляем данные через сокет
+            int bytesSent = sender.Send(msg);
+
+            // Получаем ответ от сервера
+            int bytesRec = sender.Receive(bytes);
+
+            // Освобождаем сокет
+            sender.Shutdown(SocketShutdown.Both);
+            sender.Close();
+            return Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
         }
 
