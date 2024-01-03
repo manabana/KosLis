@@ -31,7 +31,6 @@ namespace QuerySender
     }
     public class HomeSender
     {
-        static IPHostEntry ipHost;
         static IPAddress ipAddr;
         static IPEndPoint ipEndPoint;
         static IPEndPoint ipEndPointI;
@@ -45,7 +44,6 @@ namespace QuerySender
                 // считываем из файла число 
                 int MainPort = reader.ReadUInt16();
                 int ImagePort = reader.ReadUInt16();
-                ipHost = Dns.GetHostEntry("localhost");
                 ipAddr = IPAddress.Parse(IP);
                 
                 ipEndPoint = new IPEndPoint(ipAddr, MainPort);
