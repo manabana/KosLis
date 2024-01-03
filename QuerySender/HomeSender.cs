@@ -44,7 +44,7 @@ namespace QuerySender
                 string IP = reader.ReadString();
                 // считываем из файла число 
                 int MainPort = reader.ReadUInt16();
-                int ImagePort = reader.ReadInt32();
+                int ImagePort = reader.ReadUInt16();
                 ipHost = Dns.GetHostEntry("localhost");
                 ipAddr = IPAddress.Parse(IP);
                 

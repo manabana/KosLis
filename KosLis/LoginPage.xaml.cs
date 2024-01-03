@@ -693,7 +693,7 @@ namespace KosLis
             string IP = "";
 
             bool MP = UInt16.TryParse(port1.Text, out ushort mport);
-            bool ImgP = UInt16.TryParse(port1.Text, out ushort iport);
+            bool ImgP = UInt16.TryParse(port2.Text, out ushort iport);
             bool IPB1 = byte.TryParse(ipBlock1.Text, out byte ipblock1);
             bool IPB2 = byte.TryParse(ipBlock2.Text, out byte ipblock2);
             bool IPB3 = byte.TryParse(ipBlock3.Text, out byte ipblock3);
@@ -738,7 +738,7 @@ namespace KosLis
                     writer.Write(IP);
                     // записываем в файл число int
                     writer.Write(MainPort);
-                    writer.Write((Int32)ImagePort);
+                    writer.Write(ImagePort);
                 }
                 HomeSender.InitializeTCP();
                 MoveToLog(null, null);
