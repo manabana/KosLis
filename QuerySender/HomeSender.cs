@@ -37,18 +37,34 @@ namespace QuerySender
 
         public static void InitializeTCP()
         {
-            using (BinaryReader reader = new BinaryReader(File.Open("TCP.dat", FileMode.Open)))
+            try
             {
-                // считываем из файла строку
-                string IP = reader.ReadString();
-                // считываем из файла число 
-                int MainPort = reader.ReadUInt16();
-                int ImagePort = reader.ReadUInt16();
-                ipAddr = IPAddress.Parse(IP);
+                using (BinaryReader reader = new BinaryReader(File.Open("TCP.dat", FileMode.Open)))
+                {
+                    // считываем из файла строку
+                    string IP = reader.ReadString();
+                    // считываем из файла число 
+                    int MainPort = reader.ReadUInt16();
+                    int ImagePort = reader.ReadUInt16();
+                    ipAddr = IPAddress.Parse(IP);
                 
-                ipEndPoint = new IPEndPoint(ipAddr, MainPort);
-                ipEndPointI = new IPEndPoint(ipAddr, ImagePort);
+                    ipEndPoint = new IPEndPoint(ipAddr, MainPort);
+                    ipEndPointI = new IPEndPoint(ipAddr, ImagePort);
 
+                }
+
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                using (BinaryWriter writer = new BinaryWriter(File.Open("TCP.dat", FileMode.OpenOrCreate)))
+                {
+                    // записываем в файл строку
+                    writer.Write("0.0.0.0");
+                    // записываем в файл число int
+                    writer.Write(11000);
+                    writer.Write(11001);
+                }
+                InitializeTCP();
             }
         }
         public static string CheckServer()
