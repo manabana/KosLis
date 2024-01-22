@@ -731,15 +731,26 @@ namespace KosLis
             }
             try
             {
-
-                using (BinaryWriter writer = new BinaryWriter(File.Open("TCP.dat", FileMode.OpenOrCreate)))
+                using (BinaryWriter writer = new BinaryWriter(File.Open("IP.dat", FileMode.OpenOrCreate)))
                 {
-                    // записываем в файл строку
                     writer.Write(IP);
-                    // записываем в файл число int
+                }
+                using (BinaryWriter writer = new BinaryWriter(File.Open("MainPort.dat", FileMode.OpenOrCreate)))
+                {
                     writer.Write(MainPort);
+                }
+                using (BinaryWriter writer = new BinaryWriter(File.Open("ImagePort.dat", FileMode.OpenOrCreate)))
+                {
                     writer.Write(ImagePort);
                 }
+                //using (BinaryWriter writer = new BinaryWriter(File.Open("TCP.dat", FileMode.OpenOrCreate)))
+                //{
+                //    // записываем в файл строку
+                //    writer.Write(IP);
+                //    // записываем в файл число int
+                //    writer.Write(MainPort);
+                //    writer.Write(ImagePort);
+                //}
                 HomeSender.InitializeTCP();
                 MoveToLog(null, null);
             }
