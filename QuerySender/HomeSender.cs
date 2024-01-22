@@ -32,6 +32,8 @@ namespace QuerySender
     public class HomeSender
     {
         static IPAddress ipAddr;
+        static int MainPort;
+        static int ImagePort;
         static IPEndPoint ipEndPoint;
         static IPEndPoint ipEndPointI;
 
@@ -39,29 +41,35 @@ namespace QuerySender
         {
             try
             {
-                using (BinaryReader reader = new BinaryReader(File.Open("TCP.dat", FileMode.Open)))
+                using (BinaryReader reader = new BinaryReader(File.Open("IP.dat", FileMode.Open)))
                 {
-                    // считываем из файла строку
                     string IP = reader.ReadString();
-                    // считываем из файла число 
-                    int MainPort = reader.ReadUInt16();
-                    int ImagePort = reader.ReadUInt16();
                     ipAddr = IPAddress.Parse(IP);
-                
-                    ipEndPoint = new IPEndPoint(ipAddr, MainPort);
-                    ipEndPointI = new IPEndPoint(ipAddr, ImagePort);
-
                 }
+                using (BinaryReader reader = new BinaryReader(File.Open("MainPort.dat", FileMode.Open)))
+                {
+                    MainPort = reader.ReadUInt16();
+                }
+                using (BinaryReader reader = new BinaryReader(File.Open("ImagePort.dat", FileMode.Open)))
+                {
+                    ImagePort = reader.ReadUInt16();
+                }
+                ipEndPoint = new IPEndPoint(ipAddr, MainPort);
+                ipEndPointI = new IPEndPoint(ipAddr, ImagePort);
 
             }
             catch (System.IO.FileNotFoundException)
             {
-                using (BinaryWriter writer = new BinaryWriter(File.Open("TCP.dat", FileMode.OpenOrCreate)))
+                using (BinaryWriter writer = new BinaryWriter(File.Open("IP.dat", FileMode.OpenOrCreate)))
                 {
-                    // записываем в файл строку
                     writer.Write("0.0.0.0");
-                    // записываем в файл число int
+                }
+                using (BinaryWriter writer = new BinaryWriter(File.Open("MainPort.dat", FileMode.OpenOrCreate)))
+                {
                     writer.Write(11000);
+                }
+                using (BinaryWriter writer = new BinaryWriter(File.Open("ImagePort.dat", FileMode.OpenOrCreate)))
+                {
                     writer.Write(11001);
                 }
                 InitializeTCP();
