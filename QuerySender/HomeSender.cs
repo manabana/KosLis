@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Deployment.Internal;
-using System.Threading;
-using System.Security.AccessControl;
-using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using System.Reflection.Emit;
-using static System.Net.Mime.MediaTypeNames;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace QuerySender
 {
@@ -78,7 +68,7 @@ namespace QuerySender
         public static string CheckServer()
         {
             byte[] bytes = new byte[128];
-            
+
 
             using (var sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
             {
@@ -103,7 +93,7 @@ namespace QuerySender
         public static string RateChange(RateType rateType, int postId)
         {
             byte[] bytes = new byte[128];
-            
+
 
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
@@ -146,7 +136,7 @@ namespace QuerySender
                 return "Exception;ServerNotResponding";
             }
             string message = $"reqDialog;{dialogId}";
-            
+
             byte[] msg = Encoding.UTF8.GetBytes(message);
 
             // Отправляем данные через сокет
@@ -162,7 +152,7 @@ namespace QuerySender
 
 
         }
-        public static string SendMessage(string SendingMessage,int dialogId, int fromID,int toId)
+        public static string SendMessage(string SendingMessage, int dialogId, int fromID, int toId)
         {
             byte[] bytes = new byte[128];
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -232,7 +222,7 @@ namespace QuerySender
         }
         public static string AskPostImageSize(int postId)
         {
-            byte[] bytes = new byte[32]; 
+            byte[] bytes = new byte[32];
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -289,7 +279,7 @@ namespace QuerySender
                     message = "";
                     break;
             }
-            
+
             byte[] msg = Encoding.UTF8.GetBytes(message);
             int bytesSent = sender.Send(msg);
             int bytesRec = sender.Receive(bytes);
@@ -313,7 +303,7 @@ namespace QuerySender
                 return "Exception;ServerNotResponding";
             }
             string message;
-            switch(askType)
+            switch (askType)
             {
                 case AskPostsType.UserFriendsPosts:
                     message = $"postsList;friends;{userId}";
@@ -389,7 +379,7 @@ namespace QuerySender
                 sender.Connect(ipEndPoint);
                 string message = $"newpost;{usrId};{title};{contentTxt};{passw};{IMGAvlbl};{imageSize}";
 
-                
+
                 byte[] msg = Encoding.UTF8.GetBytes(message);
 
                 // Отправляем данные через сокет
@@ -454,7 +444,7 @@ namespace QuerySender
                 sender.Shutdown(SocketShutdown.Both);
                 sender.Close();
                 string checker = CheckPostImage(postId);
-                if(checker == "True")
+                if (checker == "True")
                 {
                     return "IMGAdded";//Encoding.UTF8.GetString(bytes, 0, bytesRec);
                 }
@@ -689,7 +679,7 @@ namespace QuerySender
                 return "ServerNotResponding";
             }
         }
-        public static string ChangeProfilePhoto(int userid,int photo, string password)
+        public static string ChangeProfilePhoto(int userid, int photo, string password)
         {
             byte[] bytes = new byte[32];
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -783,7 +773,7 @@ namespace QuerySender
             {
                 return "Exception;ServerNotResponding";
             }
-            
+
         }
         public static string Registering(string email, string nickname, string name, string surname, string password)
         {
