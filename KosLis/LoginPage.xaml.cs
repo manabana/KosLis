@@ -95,12 +95,12 @@ namespace KosLis
             string response = HomeSender.Registering(em, nn, nm, sn, pw);
             if (response == "EMUsed")
             {
-                Dispatcher.Invoke(() => ErrOut(7));
+                Dispatcher.Invoke(() => DisplayError(7));
                 
             }
             else if (response == "NNUsed")
             {
-                Dispatcher.Invoke(() => ErrOut(8));
+                Dispatcher.Invoke(() => DisplayError(8));
             }
             else if (response.IndexOf("AccAdded") >= 0)
             {
@@ -109,7 +109,7 @@ namespace KosLis
             }
             else if (response == "Exception;ServerNotResponding")
             {
-                Dispatcher.Invoke(() => ErrOut(1));
+                Dispatcher.Invoke(() => DisplayError(1));
             }
             else
             {
@@ -138,7 +138,7 @@ namespace KosLis
             {
                 if (s == "Электронная почта")
                 {
-                    ErrOut(5);
+                    DisplayError(5);
                 }
                 else
                 {
@@ -154,12 +154,12 @@ namespace KosLis
                     }
                     else
                     {
-                        ErrOut(4);
+                        DisplayError(4);
                     }
                 }
 
             }
-            else { ErrOut(6); }
+            else { DisplayError(6); }
         }
         private void LoginSend(string em, string pw)
         {
@@ -173,15 +173,15 @@ namespace KosLis
             {
                 if (splitedResponse[1] == "ServerNotResponding")
                 {
-                    Dispatcher.Invoke(() => ErrOut(0));
+                    Dispatcher.Invoke(() => DisplayError(0));
                 }
                 else if (splitedResponse[1] == "ICData")
                 {
-                    Dispatcher.Invoke(() => ErrOut(2));
+                    Dispatcher.Invoke(() => DisplayError(2));
                 }
                 else if (splitedResponse[1] == "SQLWillNotStarted")
                 {
-                    Dispatcher.Invoke(() => ErrOut(3));
+                    Dispatcher.Invoke(() => DisplayError(3));
                 }
 
             }
@@ -199,7 +199,7 @@ namespace KosLis
             {
                 if (s == "Электронная почта")
                 {
-                    ErrOut(5);
+                    DisplayError(5);
                 }
                 else
                 {
@@ -211,7 +211,7 @@ namespace KosLis
                     }
                     else
                     {
-                        ErrOut(4);
+                        DisplayError(4);
                     }
 
                 }
@@ -219,7 +219,7 @@ namespace KosLis
             }
             else
             {
-                ErrOut(6);
+                DisplayError(6);
             }
         }
         private void LoginSendBT(object sender, RoutedEventArgs e)
@@ -234,7 +234,7 @@ namespace KosLis
             MessageStack.Visibility = Visibility.Collapsed;
             LoginStack.Visibility = Visibility.Visible;
         }
-        internal void ErrOut(byte type)
+        internal void DisplayError(byte type)
         {
             switch (type)
             {
@@ -565,7 +565,7 @@ namespace KosLis
             }
             else
             {
-                ErrOut(4);
+                DisplayError(4);
                 publLBL.Visibility = Visibility.Visible;
                 loadLBL.Visibility = Visibility.Collapsed;
                 ResetStack.IsEnabled = true;
@@ -587,21 +587,21 @@ namespace KosLis
                 }
                 else if(resp == "NotSended")
                 {
-                    ErrOut(10);
+                    DisplayError(10);
                     publLBL.Visibility = Visibility.Visible;
                     loadLBL.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
                 }
                 else if (resp == "ServerNotResponding")
                 {
-                    ErrOut(0);
+                    DisplayError(0);
                     publLBL.Visibility = Visibility.Visible;
                     loadLBL.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
                 }
                 else if (resp == "UserNotFound")
                 {
-                    ErrOut(11);
+                    DisplayError(11);
                     publLBL.Visibility = Visibility.Visible;
                     loadLBL.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
@@ -627,7 +627,7 @@ namespace KosLis
             }
             else
             {
-                ErrOut(6);
+                DisplayError(6);
                 publLBL.Visibility = Visibility.Visible;
                 loadLBL.Visibility = Visibility.Collapsed;
                 ResetStack.IsEnabled = true;
@@ -650,14 +650,14 @@ namespace KosLis
                 }
                 else if (resp == "NotVerified")
                 {
-                    ErrOut(9);
+                    DisplayError(9);
                     publLBL2.Visibility = Visibility.Visible;
                     loadLBL2.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
                 }
                 else if (resp == "ServerNotResponding")
                 {
-                    ErrOut(0);
+                    DisplayError(0);
                     publLBL2.Visibility = Visibility.Visible;
                     loadLBL2.Visibility = Visibility.Collapsed;
                     ResetStack.IsEnabled = true;
@@ -704,7 +704,7 @@ namespace KosLis
             }
             else
             {
-                ErrOut(12);
+                DisplayError(12);
                 DoubleAnimation downScaling = new DoubleAnimation();
                 downScaling.From = SignGrid.ActualHeight;
                 downScaling.To = 370;
@@ -721,7 +721,7 @@ namespace KosLis
             }
             else
             {
-                ErrOut(13);
+                DisplayError(13);
                 DoubleAnimation downScaling = new DoubleAnimation();
                 downScaling.From = SignGrid.ActualHeight;
                 downScaling.To = 370;
