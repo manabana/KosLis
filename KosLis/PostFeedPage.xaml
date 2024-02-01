@@ -39,7 +39,7 @@
                             <StackPanel  Orientation="Vertical">
                                 <Grid>
                                     <Rectangle Fill="#242424" RadiusX="15" RadiusY="15"/>
-                                    <StackPanel Margin="0,4,0,4" Width="592" Orientation="Horizontal" FlowDirection="LeftToRight">
+                                    <StackPanel Margin="5" Width="592" Orientation="Horizontal" FlowDirection="LeftToRight">
                                         <Grid Width="50" Height="50">
                                             <Ellipse Width="50" Height="50">
                                                 <Ellipse.Fill>
@@ -56,8 +56,8 @@
                                     </StackPanel>
 
                                 </Grid>
-                                <TextBlock Foreground="White" x:Name="PostTTL" TextWrapping="Wrap" Text="{Binding postTitle}" FontSize="20"/>
-                                <TextBlock Foreground="White" x:Name="PostTXT" TextWrapping="Wrap" Text="{Binding postText}" FontSize="14"/>
+                                <TextBlock Margin="5" Foreground="White" x:Name="PostTTL" TextWrapping="Wrap" Text="{Binding postTitle}" FontSize="20"/>
+                                <TextBlock Margin="5" Foreground="White" x:Name="PostTXT" TextWrapping="Wrap" Text="{Binding postText}" FontSize="14"/>
 
                                 <Grid MaxWidth="584" MaxHeight="328.5" Visibility="Visible" Background="Black" >
                                     <Image Source="{Binding postImage}" MaxWidth="584" MaxHeight="328.5"/>

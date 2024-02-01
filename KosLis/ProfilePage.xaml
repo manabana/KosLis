@@ -122,7 +122,7 @@
                                                             <ColumnDefinition Width="40"/>
                                                         </Grid.ColumnDefinitions>
                                                         <Rectangle Grid.ColumnSpan="2" Fill="#242424" RadiusX="15" RadiusY="15"/>
-                                                        <StackPanel Margin="0,4,0,4" Width="540" Orientation="Horizontal" FlowDirection="LeftToRight">
+                                                        <StackPanel Margin="5" Width="540" Orientation="Horizontal" FlowDirection="LeftToRight">
                                                             <Ellipse Width="50" Height="50">
                                                                 <Ellipse.Fill>
                                                                     <ImageBrush ImageSource="{Binding profilePhoto}"/>
@@ -139,8 +139,8 @@
                                                             </Button.Content>
                                                         </Button>
                                                     </Grid>
-                                                    <TextBlock x:Name="PostTTL" TextWrapping="Wrap" Foreground="White" Text="{Binding postTitle}" FontSize="20"/>
-                                                    <TextBlock x:Name="PostTXT" TextWrapping="Wrap" Text="{Binding postText}" Foreground="White" FontSize="14"/>
+                                                    <TextBlock Margin="5" x:Name="PostTTL" TextWrapping="Wrap" Foreground="White" Text="{Binding postTitle}" FontSize="20"/>
+                                                    <TextBlock Margin="5" x:Name="PostTXT" TextWrapping="Wrap" Text="{Binding postText}" Foreground="White" FontSize="14"/>
 
                                                     <Grid MaxWidth="544" MaxHeight="306" Visibility="Visible" Background="Black" >
                                                         <Image Source="{Binding postImage}" MaxWidth="544" MaxHeight="306"/>

@@ -82,7 +82,7 @@ namespace KosLis
             }
             catch (System.ArgumentException)
             {
-                MessageShow("Изображение не было выбрано", 0);
+                Dispatcher.Invoke(() => MessageShow("Изображение не было выбрано", 0));
             }
             catch { }
         }
@@ -235,7 +235,7 @@ namespace KosLis
                 }
                 else if (respond == "IMGNotFound")
                 {
-                    MessageShow("Неизвестная ошибка", 0);
+                    Dispatcher.Invoke(() => MessageShow("Неизвестная ошибка", 0));
                 }
             }
             else if(resp.IndexOf("Exception") >= 0)
