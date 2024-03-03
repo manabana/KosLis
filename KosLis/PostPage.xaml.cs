@@ -60,15 +60,32 @@ namespace KosLis
         {
             try
             {
-                BitmapImage bitmap1= new BitmapImage();
+                #region Beta
+                //BitmapImage bitmap1 = new BitmapImage();
+                //System.Drawing.Image image;
+                //string filenm;
+
+                //OpenFileDialog openFile = new OpenFileDialog();
+                //openFile.Filter = "Images (.BMP;.JPG;.GIF;.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*"; // Обрати внимание на исправленный фильтр
+                //if (openFile.ShowDialog() == true) // проверка на успешное открытие
+                //{
+                //    filenm = openFile.FileName;
+                //    image = System.Drawing.Image.FromFile(filenm);
+
+                //    byte[] ImageBytes = ImgToByteConverter(image);
+                //    // Предполагаем, что теперь ты хочешь что-то делать с этими байтами
+
+                //}
+                #endregion
+                BitmapImage bitmap1 = new BitmapImage();
                 System.Drawing.Image image;
                 string filenm;
                 OpenFileDialog openFile = new OpenFileDialog();
-                openFile.Filter = "Image Files(*.png)|*.png";
+                openFile.Filter = "Images (*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
 
                 openFile.ShowDialog();
                 filenm = openFile.FileName;
-                image= System.Drawing.Image.FromFile(filenm);
+                image = System.Drawing.Image.FromFile(filenm);
 
                 byte[] ImageBytes = ImgToByteConverter(image);
                 ImageSize = ImageBytes.Length;
@@ -100,10 +117,40 @@ namespace KosLis
             };
 
         }
+        public BitmapImage DrawingToBitmapBeta(System.Drawing.Image image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                // Здесь сохраняем изображение.
+                image.Save(stream, ImageFormat.Png); // Попробуй использовать PNG.
+                stream.Position = 0; // Сбрасываем позицию потока.
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad; // Это поможет с загрузкой.
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze(); // Заморозка для использования в других потоках.
+
+                return bitmap;
+            }
+        }
         public static byte[] ImgToByteConverter(System.Drawing.Image inImg)
         {
-            ImageConverter imgCon = new ImageConverter();
-            return (byte[])imgCon.ConvertTo(inImg, typeof(byte[]));
+            //ImageConverter imgCon = new ImageConverter();
+            //return (byte[])imgCon.ConvertTo(inImg, typeof(byte[]));
+
+            using (var memoryStream = new MemoryStream())
+            {
+                // Сохраняем изображение в поток в формате, например, JPEG.
+                inImg.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                // Преобразуем MemoryStream в массив байтов.
+                byte[] imageBytes = memoryStream.ToArray();
+
+                // Возвращаем массив байтов.
+                return imageBytes;
+            }
         }
         public System.Drawing.Image ByteArrayToImage(byte[] byteArrayIn)
         {
@@ -320,12 +367,7 @@ namespace KosLis
                 animation.From = 16;
                 animation.To = 0;
                 animation.Duration = TimeSpan.FromSeconds(0.2);
-                try
-                {
                 PreImg.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
-
-                }
-                catch { }
                 DelGrid.BeginAnimation(Grid.OpacityProperty, animation1);
                 DelGrid.Visibility = Visibility.Collapsed;
 

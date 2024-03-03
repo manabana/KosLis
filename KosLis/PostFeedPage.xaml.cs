@@ -100,6 +100,24 @@ namespace KosLis
             };
 
         }
+        public BitmapImage DrawingToBitmapBeta(System.Drawing.Image image)
+        {
+            using (var stream = new MemoryStream())
+            {
+                // Здесь сохраняем изображение.
+                image.Save(stream, ImageFormat.Png); // Попробуй использовать PNG.
+                stream.Position = 0; // Сбрасываем позицию потока.
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad; // Это поможет с загрузкой.
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze(); // Заморозка для использования в других потоках.
+
+                return bitmap;
+            }
+        }
 
         private void Rate(object sender, RoutedEventArgs e)
         {
